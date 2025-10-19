@@ -1,0 +1,26 @@
+{
+  "model_settings": {
+    "legal_bert_model": "nlpaueb/legal-bert-base-uncased",
+    "flan_t5_model": "google/flan-t5-base",
+    "sentence_transformer": "all-MiniLM-L6-v2"
+  },
+  "data_settings": {
+    "max_length": 512,
+    "batch_size": 8,
+    "learning_rate": 2e-05
+  },
+  "rag_settings": {
+    "top_k": 5,
+    "similarity_threshold": 0.7
+  },
+  "multilingual_settings": {
+    "supported_languages": [
+      "en",
+      "hi",
+      "ta",
+      "bn",
+      "te"
+    ],
+    "default_language": "en"
+  }
+}

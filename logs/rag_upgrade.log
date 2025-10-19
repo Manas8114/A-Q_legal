@@ -1,0 +1,45 @@
+2025-10-15 18:23:22.425 | INFO     | __main__:load_trained_data:35 - 🔄 Loading existing trained data...
+2025-10-15 18:23:22.479 | INFO     | __main__:load_trained_data:39 - ✅ Loaded 8007 trained documents
+2025-10-15 18:23:22.480 | INFO     | __main__:run_upgrade:800 - 🚀 Starting A-Qlegal 2.5 Generative RAG Upgrade
+2025-10-15 18:23:22.480 | INFO     | __main__:run_upgrade:801 - ============================================================
+2025-10-15 18:23:22.480 | INFO     | __main__:run_upgrade:813 - Step 1/6: Creating generative prompts
+2025-10-15 18:23:22.480 | INFO     | __main__:create_generative_prompts:45 - 🔄 Creating generative prompts...
+2025-10-15 18:23:22.818 | INFO     | __main__:create_generative_prompts:96 - ✅ Created 8007 generative prompts
+2025-10-15 18:23:22.821 | INFO     | __main__:run_upgrade:816 - ✅ Creating generative prompts completed
+2025-10-15 18:23:22.821 | INFO     | __main__:run_upgrade:820 - 
+2025-10-15 18:23:22.821 | INFO     | __main__:run_upgrade:813 - Step 2/6: Building RAG retrieval system
+2025-10-15 18:23:22.821 | INFO     | __main__:create_rag_retriever:101 - 🔄 Creating RAG retrieval system...
+2025-10-15 18:23:23.119 | INFO     | __main__:create_rag_retriever:130 - ✅ Created RAG index with 8007 entries
+2025-10-15 18:23:23.121 | INFO     | __main__:run_upgrade:816 - ✅ Building RAG retrieval system completed
+2025-10-15 18:23:23.121 | INFO     | __main__:run_upgrade:820 - 
+2025-10-15 18:23:23.122 | INFO     | __main__:run_upgrade:813 - Step 3/6: Creating multilingual dataset
+2025-10-15 18:23:23.122 | INFO     | __main__:create_multilingual_dataset:135 - 🔄 Creating multilingual dataset...
+2025-10-15 18:23:23.124 | INFO     | __main__:create_multilingual_dataset:170 - ✅ Created 100 multilingual examples
+2025-10-15 18:23:23.124 | INFO     | __main__:run_upgrade:816 - ✅ Creating multilingual dataset completed
+2025-10-15 18:23:23.124 | INFO     | __main__:run_upgrade:820 - 
+2025-10-15 18:23:23.126 | INFO     | __main__:run_upgrade:813 - Step 4/6: Setting up user personas
+2025-10-15 18:23:23.126 | INFO     | __main__:create_contextual_personas:175 - 🔄 Creating contextual personas...
+2025-10-15 18:23:23.126 | INFO     | __main__:create_contextual_personas:212 - ✅ Created 4 user personas
+2025-10-15 18:23:23.126 | INFO     | __main__:run_upgrade:816 - ✅ Setting up user personas completed
+2025-10-15 18:23:23.126 | INFO     | __main__:run_upgrade:820 - 
+2025-10-15 18:23:23.126 | INFO     | __main__:run_upgrade:813 - Step 5/6: Creating advanced RAG app
+2025-10-15 18:23:23.126 | INFO     | __main__:create_advanced_rag_app:217 - 🔄 Creating advanced RAG app...
+2025-10-15 18:23:23.129 | INFO     | __main__:create_advanced_rag_app:591 - ✅ Advanced RAG app created
+2025-10-15 18:23:23.129 | INFO     | __main__:run_upgrade:816 - ✅ Creating advanced RAG app completed
+2025-10-15 18:23:23.129 | INFO     | __main__:run_upgrade:820 - 
+2025-10-15 18:23:23.129 | INFO     | __main__:run_upgrade:813 - Step 6/6: Generating documentation
+2025-10-15 18:23:23.130 | INFO     | __main__:create_upgrade_documentation:596 - 🔄 Creating upgrade documentation...
+2025-10-15 18:23:23.131 | INFO     | __main__:create_upgrade_documentation:795 - ✅ Upgrade documentation created
+2025-10-15 18:23:23.132 | INFO     | __main__:run_upgrade:816 - ✅ Generating documentation completed
+2025-10-15 18:23:23.132 | INFO     | __main__:run_upgrade:820 - 
+2025-10-15 18:23:23.133 | SUCCESS  | __main__:run_upgrade:822 - 🎉 A-Qlegal 2.5 Upgrade Completed Successfully!
+2025-10-15 18:23:23.133 | INFO     | __main__:run_upgrade:823 - 
+2025-10-15 18:23:23.133 | INFO     | __main__:run_upgrade:824 - 🚀 To run the new RAG system:
+2025-10-15 18:23:23.134 | INFO     | __main__:run_upgrade:825 -    streamlit run aqlegal_rag_app.py
+2025-10-15 18:23:23.135 | INFO     | __main__:run_upgrade:826 - 
+2025-10-15 18:23:23.135 | INFO     | __main__:run_upgrade:827 - ✨ New Features:
+2025-10-15 18:23:23.135 | INFO     | __main__:run_upgrade:828 -    • Generative RAG responses
+2025-10-15 18:23:23.136 | INFO     | __main__:run_upgrade:829 -    • 9-point structured format
+2025-10-15 18:23:23.136 | INFO     | __main__:run_upgrade:830 -    • 4 user personas
+2025-10-15 18:23:23.136 | INFO     | __main__:run_upgrade:831 -    • Multilingual support
+2025-10-15 18:23:23.137 | INFO     | __main__:run_upgrade:832 -    • Enhanced UI/UX

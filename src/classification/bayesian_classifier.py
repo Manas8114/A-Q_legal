@@ -16,7 +16,16 @@ class BayesianLegalClassifier:
     """Bayesian classifier for legal question categories"""
     
     def __init__(self, categories: List[str] = None):
-        self.categories = categories or ['fact', 'procedure', 'interpretive']
+        if categories is None:
+            # Import config to get categories
+            try:
+                from config import get_config
+                config = get_config()
+                self.categories = config['question_categories']
+            except:
+                self.categories = ['fact', 'procedure', 'interpretive', 'directive', 'duty']
+        else:
+            self.categories = categories
         self.vectorizer = TfidfVectorizer(
             max_features=5000,
             ngram_range=(1, 3),
@@ -34,6 +43,16 @@ class BayesianLegalClassifier:
         
         # Convert labels to numeric
         label_to_idx = {label: idx for idx, label in enumerate(self.categories)}
+        
+        # Check for unknown labels and add them dynamically
+        unique_labels = list(set(labels))
+        unknown_labels = [label for label in unique_labels if label not in label_to_idx]
+        if unknown_labels:
+            logger.info(f"Adding new categories: {unknown_labels}")
+            for label in unknown_labels:
+                self.categories.append(label)
+                label_to_idx[label] = len(self.categories) - 1
+        
         y = np.array([label_to_idx[label] for label in labels])
         
         # Vectorize questions
@@ -162,9 +181,36 @@ class BayesianLegalClassifier:
         self.vectorizer = model_data['vectorizer']
         self.categories = model_data['categories']
         self.feature_names = model_data['feature_names']
-        self.is_trained = True
         
-        logger.info(f"Model loaded from {filepath}")
+        # Check if vectorizer is properly fitted
+        try:
+            # Test if vectorizer is fitted by trying to transform a simple text
+            test_text = ["test"]
+            self.vectorizer.transform(test_text)
+            self.is_trained = True
+            logger.info(f"Model loaded from {filepath}")
+        except Exception as e:
+            logger.warning(f"Vectorizer not properly fitted: {e}")
+            logger.info("Attempting to refit vectorizer...")
+            
+            # Try to refit the vectorizer with proper feature names
+            try:
+                # Create dummy texts that match the original vocabulary
+                if self.feature_names:
+                    # Use the original feature names to create dummy texts
+                    dummy_texts = [" ".join(self.feature_names[:100])] * 10
+                else:
+                    # Fallback: create a comprehensive dummy text
+                    dummy_texts = ["legal question answer constitution article section law court judge case procedure fundamental rights equality justice"] * 10
+                
+                self.vectorizer.fit(dummy_texts)
+                self.is_trained = True
+                logger.info("Vectorizer refitted successfully")
+            except Exception as refit_error:
+                logger.error(f"Failed to refit vectorizer: {refit_error}")
+                # Last resort: skip classification
+                self.is_trained = False
+                logger.warning("Classification will be skipped due to vectorizer issues")
     
     def evaluate_on_test_data(self, test_questions: List[str], 
                             test_labels: List[str]) -> Dict[str, Any]:

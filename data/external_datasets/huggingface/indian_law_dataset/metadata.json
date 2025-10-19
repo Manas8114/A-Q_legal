@@ -1,0 +1,9 @@
+{
+  "source": "huggingface",
+  "repo": "viber1/indian-law-dataset",
+  "description": "Indian legal QA dataset",
+  "downloaded_at": "2025-10-13T00:58:28.520585",
+  "splits": {
+    "train": 24607
+  }
+}

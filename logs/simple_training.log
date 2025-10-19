@@ -1,0 +1,163 @@
+2025-10-15 18:13:43 | INFO     | 🚀 Starting A-Qlegal 2.0 Simple Training
+2025-10-15 18:13:43 | INFO     | ============================================================
+2025-10-15 18:13:43 | INFO     | Step 1/5: Loading all data
+2025-10-15 18:13:43 | INFO     | 🔄 Loading all legal data...
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 7952 documents from expanded dataset
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 8 documents from enhanced dataset
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 2 documents from criminal_law
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 0 documents from civil_law
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 0 documents from constitutional_amendments
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 0 documents from high_court_decisions
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 7 documents from indian_constitution
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 0 documents from legal_glossary
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 0 documents from legal_precedents
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 0 documents from multilingual_legal
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 2 documents from supreme_court_judgments
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 5 documents from fundamental_rights.json
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 4 documents from indian_constitution.json
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 17 documents from indian_legal_qa_pairs.json
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 6 documents from legal_documents.json
+2025-10-15 18:13:43 | INFO     | ✅ Loaded 4 documents from legal_glossary.json
+2025-10-15 18:13:43 | WARNING  | ❌ Failed to load HuggingFace dataset: Extra data: line 2 column 1 (char 576)
+2025-10-15 18:13:43 | INFO     | 📊 Total documents loaded: 8007
+2025-10-15 18:13:43 | INFO     | ✅ Loading all data completed
+2025-10-15 18:13:43 | INFO     | 
+2025-10-15 18:13:43 | INFO     | Step 2/5: Preprocessing documents
+2025-10-15 18:13:43 | INFO     | 🔄 Preprocessing legal documents...
+2025-10-15 18:13:44 | INFO     | ✅ Processed 8007 documents
+2025-10-15 18:13:44 | INFO     | ✅ Preprocessing documents completed
+2025-10-15 18:13:44 | INFO     | 
+2025-10-15 18:13:44 | INFO     | Step 3/5: Creating Q&A pairs
+2025-10-15 18:13:44 | INFO     | 🔄 Creating Q&A pairs...
+2025-10-15 18:13:44 | INFO     | ✅ Created 21496 Q&A pairs
+2025-10-15 18:13:44 | INFO     | ✅ Creating Q&A pairs completed
+2025-10-15 18:13:44 | INFO     | 
+2025-10-15 18:13:44 | INFO     | Step 4/5: Training TF-IDF vectorizer
+2025-10-15 18:13:44 | INFO     | 🔄 Training TF-IDF vectorizer...
+2025-10-15 18:13:54 | INFO     | ✅ TF-IDF vectorizer trained and saved
+2025-10-15 18:13:54 | INFO     | ✅ Training TF-IDF vectorizer completed
+2025-10-15 18:13:54 | INFO     | 
+2025-10-15 18:13:54 | INFO     | Step 5/5: Creating enhanced app
+2025-10-15 18:13:54 | INFO     | 🔄 Creating enhanced app...
+2025-10-15 18:13:54 | INFO     | ✅ Enhanced app created
+2025-10-15 18:13:54 | INFO     | ✅ Creating enhanced app completed
+2025-10-15 18:13:54 | INFO     | 
+2025-10-15 18:13:54 | SUCCESS  | 🎉 A-Qlegal 2.0 Training Completed Successfully!
+2025-10-15 18:13:54 | INFO     | 
+2025-10-15 18:13:54 | INFO     | 🚀 To run the enhanced app:
+2025-10-15 18:13:54 | INFO     |    streamlit run enhanced_legal_app.py
+2025-10-15 18:13:54 | INFO     | 
+2025-10-15 18:13:54 | INFO     | 📊 Training Summary:
+2025-10-15 18:13:54 | INFO     |    • Documents processed: 8007
+2025-10-15 18:13:54 | INFO     |    • Q&A pairs created: 21496
+2025-10-15 18:13:54 | INFO     |    • Models trained: TF-IDF Vectorizer
+2025-10-15 18:13:54 | INFO     |    • Search type: Advanced Keyword Search
+2025-10-15 20:35:34 | INFO     | 🚀 Starting A-Qlegal 2.0 Simple Training
+2025-10-15 20:35:34 | INFO     | ============================================================
+2025-10-15 20:35:34 | INFO     | Step 1/5: Loading all data
+2025-10-15 20:35:34 | INFO     | 🔄 Loading all legal data...
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 7952 documents from expanded dataset
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 8 documents from enhanced dataset
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 2 documents from criminal_law
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 0 documents from civil_law
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 0 documents from constitutional_amendments
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 0 documents from high_court_decisions
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 7 documents from indian_constitution
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 0 documents from legal_glossary
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 0 documents from legal_precedents
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 0 documents from multilingual_legal
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 2 documents from supreme_court_judgments
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 5 documents from fundamental_rights.json
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 4 documents from indian_constitution.json
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 17 documents from indian_legal_qa_pairs.json
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 6 documents from legal_documents.json
+2025-10-15 20:35:34 | INFO     | ✅ Loaded 4 documents from legal_glossary.json
+2025-10-15 20:35:34 | WARNING  | ❌ Failed to load HuggingFace dataset: Extra data: line 2 column 1 (char 576)
+2025-10-15 20:35:34 | INFO     | 📊 Total documents loaded: 8007
+2025-10-15 20:35:34 | INFO     | ✅ Loading all data completed
+2025-10-15 20:35:34 | INFO     | 
+2025-10-15 20:35:34 | INFO     | Step 2/5: Preprocessing documents
+2025-10-15 20:35:34 | INFO     | 🔄 Preprocessing legal documents...
+2025-10-15 20:35:34 | INFO     | ✅ Processed 8007 documents
+2025-10-15 20:35:35 | INFO     | ✅ Preprocessing documents completed
+2025-10-15 20:35:35 | INFO     | 
+2025-10-15 20:35:35 | INFO     | Step 3/5: Creating Q&A pairs
+2025-10-15 20:35:35 | INFO     | 🔄 Creating Q&A pairs...
+2025-10-15 20:35:35 | INFO     | ✅ Created 21496 Q&A pairs
+2025-10-15 20:35:35 | INFO     | ✅ Creating Q&A pairs completed
+2025-10-15 20:35:35 | INFO     | 
+2025-10-15 20:35:35 | INFO     | Step 4/5: Training TF-IDF vectorizer
+2025-10-15 20:35:35 | INFO     | 🔄 Training TF-IDF vectorizer...
+2025-10-15 20:35:50 | INFO     | ✅ TF-IDF vectorizer trained and saved
+2025-10-15 20:35:50 | INFO     | ✅ Training TF-IDF vectorizer completed
+2025-10-15 20:35:50 | INFO     | 
+2025-10-15 20:35:50 | INFO     | Step 5/5: Creating enhanced app
+2025-10-15 20:35:50 | INFO     | 🔄 Creating enhanced app...
+2025-10-15 20:35:50 | INFO     | ✅ Enhanced app created
+2025-10-15 20:35:50 | INFO     | ✅ Creating enhanced app completed
+2025-10-15 20:35:50 | INFO     | 
+2025-10-15 20:35:50 | SUCCESS  | 🎉 A-Qlegal 2.0 Training Completed Successfully!
+2025-10-15 20:35:50 | INFO     | 
+2025-10-15 20:35:50 | INFO     | 🚀 To run the enhanced app:
+2025-10-15 20:35:50 | INFO     |    streamlit run enhanced_legal_app.py
+2025-10-15 20:35:50 | INFO     | 
+2025-10-15 20:35:50 | INFO     | 📊 Training Summary:
+2025-10-15 20:35:50 | INFO     |    • Documents processed: 8007
+2025-10-15 20:35:50 | INFO     |    • Q&A pairs created: 21496
+2025-10-15 20:35:50 | INFO     |    • Models trained: TF-IDF Vectorizer
+2025-10-15 20:35:50 | INFO     |    • Search type: Advanced Keyword Search
+2025-10-15 20:36:15 | INFO     | 🚀 Starting A-Qlegal 2.0 Simple Training
+2025-10-15 20:36:15 | INFO     | ============================================================
+2025-10-15 20:36:15 | INFO     | Step 1/5: Loading all data
+2025-10-15 20:36:15 | INFO     | 🔄 Loading all legal data...
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 7952 documents from expanded dataset
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 8 documents from enhanced dataset
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 181 documents from enhanced dataset v2
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 2 documents from criminal_law
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 0 documents from civil_law
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 0 documents from constitutional_amendments
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 0 documents from high_court_decisions
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 7 documents from indian_constitution
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 0 documents from legal_glossary
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 0 documents from legal_precedents
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 0 documents from multilingual_legal
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 2 documents from supreme_court_judgments
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 5 documents from fundamental_rights.json
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 4 documents from indian_constitution.json
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 17 documents from indian_legal_qa_pairs.json
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 6 documents from legal_documents.json
+2025-10-15 20:36:15 | INFO     | ✅ Loaded 4 documents from legal_glossary.json
+2025-10-15 20:36:15 | WARNING  | ❌ Failed to load HuggingFace dataset: Extra data: line 2 column 1 (char 576)
+2025-10-15 20:36:15 | INFO     | 📊 Total documents loaded: 8188
+2025-10-15 20:36:15 | INFO     | ✅ Loading all data completed
+2025-10-15 20:36:15 | INFO     | 
+2025-10-15 20:36:15 | INFO     | Step 2/5: Preprocessing documents
+2025-10-15 20:36:15 | INFO     | 🔄 Preprocessing legal documents...
+2025-10-15 20:36:15 | INFO     | ✅ Processed 8188 documents
+2025-10-15 20:36:16 | INFO     | ✅ Preprocessing documents completed
+2025-10-15 20:36:16 | INFO     | 
+2025-10-15 20:36:16 | INFO     | Step 3/5: Creating Q&A pairs
+2025-10-15 20:36:16 | INFO     | 🔄 Creating Q&A pairs...
+2025-10-15 20:36:16 | INFO     | ✅ Created 22039 Q&A pairs
+2025-10-15 20:36:17 | INFO     | ✅ Creating Q&A pairs completed
+2025-10-15 20:36:17 | INFO     | 
+2025-10-15 20:36:17 | INFO     | Step 4/5: Training TF-IDF vectorizer
+2025-10-15 20:36:17 | INFO     | 🔄 Training TF-IDF vectorizer...
+2025-10-15 20:36:33 | INFO     | ✅ TF-IDF vectorizer trained and saved
+2025-10-15 20:36:33 | INFO     | ✅ Training TF-IDF vectorizer completed
+2025-10-15 20:36:33 | INFO     | 
+2025-10-15 20:36:33 | INFO     | Step 5/5: Creating enhanced app
+2025-10-15 20:36:33 | INFO     | 🔄 Creating enhanced app...
+2025-10-15 20:36:33 | INFO     | ✅ Enhanced app created
+2025-10-15 20:36:33 | INFO     | ✅ Creating enhanced app completed
+2025-10-15 20:36:33 | INFO     | 
+2025-10-15 20:36:33 | SUCCESS  | 🎉 A-Qlegal 2.0 Training Completed Successfully!
+2025-10-15 20:36:33 | INFO     | 
+2025-10-15 20:36:33 | INFO     | 🚀 To run the enhanced app:
+2025-10-15 20:36:33 | INFO     |    streamlit run enhanced_legal_app.py
+2025-10-15 20:36:33 | INFO     | 
+2025-10-15 20:36:33 | INFO     | 📊 Training Summary:
+2025-10-15 20:36:33 | INFO     |    • Documents processed: 8188
+2025-10-15 20:36:33 | INFO     |    • Q&A pairs created: 22039
+2025-10-15 20:36:33 | INFO     |    • Models trained: TF-IDF Vectorizer
+2025-10-15 20:36:33 | INFO     |    • Search type: Advanced Keyword Search

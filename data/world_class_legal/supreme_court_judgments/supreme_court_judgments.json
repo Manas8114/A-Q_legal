@@ -1,0 +1,41 @@
+[
+  {
+    "case_name": "Kesavananda Bharati v. State of Kerala",
+    "year": 1973,
+    "court": "Supreme Court",
+    "judges": [
+      "S.M. Sikri",
+      "J.M. Shelat",
+      "K.S. Hegde"
+    ],
+    "summary": "Landmark case that established the basic structure doctrine of the Constitution",
+    "key_points": [
+      "Parliament cannot amend the basic structure of the Constitution",
+      "Fundamental rights are part of the basic structure",
+      "Judicial review is essential for democracy"
+    ],
+    "citations": [
+      "AIR 1973 SC 1461"
+    ],
+    "importance": "critical"
+  },
+  {
+    "case_name": "Maneka Gandhi v. Union of India",
+    "year": 1978,
+    "court": "Supreme Court",
+    "judges": [
+      "P.N. Bhagwati",
+      "V.R. Krishna Iyer"
+    ],
+    "summary": "Expanded the scope of Article 21 to include procedural due process",
+    "key_points": [
+      "Article 21 includes right to live with human dignity",
+      "Procedure established by law must be fair and reasonable",
+      "Expanded fundamental rights through judicial interpretation"
+    ],
+    "citations": [
+      "AIR 1978 SC 597"
+    ],
+    "importance": "critical"
+  }
+]

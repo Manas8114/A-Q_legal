@@ -1,0 +1,86 @@
+{
+  "reasoning_templates": {
+    "general_legal": "\nBased on general Indian legal principles:\n\n**Understanding Your Question:**\n{question}\n\n**General Legal Perspective:**\nWhile this specific question isn't directly covered in our database, here's what Indian law generally says:\n\n{reasoning}\n\n**Important Considerations:**\n1. Indian law is based on the Constitution of India\n2. Laws are made by Parliament and State Legislatures\n3. Courts interpret and apply these laws\n4. Legal principles of natural justice apply\n\n**Related Legal Concepts:**\n{related_concepts}\n\n**Recommended Action:**\n⚠️ For specific legal advice on this matter, please consult a qualified lawyer.\n\n**Disclaimer:**\nThis is a general legal perspective, not specific legal advice. Laws may vary based on jurisdiction and specific circumstances.\n",
+    "criminal_law": "\nBased on Indian criminal law principles:\n\n**Your Question:**\n{question}\n\n**Criminal Law Perspective:**\n{reasoning}\n\n**Key Principles:**\n1. Intent (Mens Rea) and Action (Actus Reus) required for most crimes\n2. Presumption of innocence until proven guilty\n3. Right to fair trial and legal representation\n4. Punishments must be proportionate to the offense\n\n**Your Rights:**\n- Right to legal counsel\n- Right to remain silent\n- Right to bail (in bailable offenses)\n- Right to fair and speedy trial\n\n**Next Steps:**\n{next_steps}\n",
+    "civil_law": "\nBased on Indian civil law principles:\n\n**Your Question:**\n{question}\n\n**Civil Law Perspective:**\n{reasoning}\n\n**Key Principles:**\n1. Rights and obligations under contracts\n2. Property rights and inheritance laws\n3. Tort law for civil wrongs\n4. Dispute resolution through courts or arbitration\n\n**Legal Remedies Available:**\n{remedies}\n\n**Recommended Approach:**\n{approach}\n",
+    "constitutional_law": "\nBased on the Indian Constitution:\n\n**Your Question:**\n{question}\n\n**Constitutional Perspective:**\n{reasoning}\n\n**Fundamental Principles:**\n1. Fundamental Rights (Part III)\n2. Directive Principles (Part IV)\n3. Fundamental Duties (Part IVA)\n4. Constitutional Remedies (Article 32, 226)\n\n**Constitutional Protections:**\n{protections}\n\n**How to Enforce Your Rights:**\n{enforcement}\n"
+  },
+  "reasoning_patterns": {
+    "identify_category": [
+      [
+        "crime",
+        "criminal_law"
+      ],
+      [
+        "murder",
+        "criminal_law"
+      ],
+      [
+        "theft",
+        "criminal_law"
+      ],
+      [
+        "fraud",
+        "criminal_law"
+      ],
+      [
+        "rights",
+        "constitutional_law"
+      ],
+      [
+        "fundamental",
+        "constitutional_law"
+      ],
+      [
+        "constitution",
+        "constitutional_law"
+      ],
+      [
+        "contract",
+        "civil_law"
+      ],
+      [
+        "property",
+        "civil_law"
+      ],
+      [
+        "inheritance",
+        "civil_law"
+      ]
+    ],
+    "general_reasoning": [
+      "Indian law is comprehensive and covers various aspects of life",
+      "The Constitution of India is the supreme law",
+      "Laws are made to protect citizens and maintain social order",
+      "Every citizen has both rights and responsibilities",
+      "Courts are the ultimate interpreters of law"
+    ]
+  },
+  "related_concepts_map": {
+    "criminal": [
+      "IPC (Indian Penal Code)",
+      "CrPC (Criminal Procedure)",
+      "Evidence Act",
+      "Police procedures"
+    ],
+    "civil": [
+      "Contract Act",
+      "Property laws",
+      "Family law",
+      "Tort law"
+    ],
+    "constitutional": [
+      "Fundamental Rights",
+      "Directive Principles",
+      "Judicial Review",
+      "Constitutional Remedies"
+    ]
+  },
+  "next_steps_templates": [
+    "Consult a criminal lawyer for specific advice",
+    "File an FIR at the nearest police station if you're a victim",
+    "Gather all relevant evidence and documentation",
+    "Know your legal rights and protections",
+    "Consider legal aid if you cannot afford a lawyer"
+  ]
+}

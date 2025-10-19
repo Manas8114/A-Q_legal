@@ -1,0 +1,22 @@
+[
+  {
+    "section": "Section 299",
+    "title": "Culpable Homicide",
+    "content": "Whoever causes death by doing an act with the intention of causing death, or with the intention of causing such bodily injury as is likely to cause death, or with the knowledge that he is likely by such act to cause death, commits the offence of culpable homicide.",
+    "category": "criminal_law",
+    "punishment": "Life imprisonment or imprisonment up to 10 years",
+    "citations": [
+      "IPC Section 299"
+    ]
+  },
+  {
+    "section": "Section 302",
+    "title": "Murder",
+    "content": "Whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine.",
+    "category": "criminal_law",
+    "punishment": "Death penalty or life imprisonment",
+    "citations": [
+      "IPC Section 302"
+    ]
+  }
+]

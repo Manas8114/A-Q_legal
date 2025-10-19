@@ -1,0 +1,30 @@
+{
+  "streamlit_app": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  },
+  "computer_vision": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  },
+  "document_generation": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  },
+  "case_law": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  },
+  "glossary": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  },
+  "calendar": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  },
+  "pdf_export": {
+    "success": false,
+    "result": "No module named 'reportlab'"
+  }
+}

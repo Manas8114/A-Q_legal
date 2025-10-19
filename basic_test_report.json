@@ -1,0 +1,32 @@
+{
+  "total_tests": 6,
+  "successful_tests": 6,
+  "failed_tests": 0,
+  "success_rate": 100.0,
+  "test_results": [
+    {
+      "name": "Basic Imports",
+      "success": true
+    },
+    {
+      "name": "Legal Components",
+      "success": true
+    },
+    {
+      "name": "PDF Export",
+      "success": true
+    },
+    {
+      "name": "Data Loading",
+      "success": true
+    },
+    {
+      "name": "Model Loading",
+      "success": true
+    },
+    {
+      "name": "Query Processing",
+      "success": true
+    }
+  ]
+}

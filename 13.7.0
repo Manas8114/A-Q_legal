@@ -1,0 +1,4 @@
+Requirement already satisfied: rich in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (14.2.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from rich) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from rich) (2.17.2)
+Requirement already satisfied: mdurl~=0.1 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from markdown-it-py>=2.2.0->rich) (0.1.2)

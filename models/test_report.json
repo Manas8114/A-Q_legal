@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-10-12T20:35:27.931499",
+  "device": "cuda",
+  "results": {
+    "classification": {
+      "correct": 2,
+      "total": 5,
+      "details": [
+        {
+          "text": "Article 14 of the Indian Constitution states equal",
+          "expected": "fundamental_rights",
+          "predicted": "fundamental_rights",
+          "confidence": 0.9603630304336548,
+          "correct": true
+        },
+        {
+          "text": "Section 302 IPC deals with murder and its punishme",
+          "expected": "criminal_law",
+          "predicted": "criminal_procedure",
+          "confidence": 0.7040964961051941,
+          "correct": false
+        },
+        {
+          "text": "Code of Civil Procedure governs civil suits",
+          "expected": "civil_procedure",
+          "predicted": "civil_procedure",
+          "confidence": 0.9259512424468994,
+          "correct": true
+        },
+        {
+          "text": "Habeas Corpus is a writ for personal liberty",
+          "expected": "legal_procedures",
+          "predicted": "constitutional_remedies",
+          "confidence": 0.18269994854927063,
+          "correct": false
+        },
+        {
+          "text": "Supreme Court has judicial review powers",
+          "expected": "constitutional_law",
+          "predicted": "constitutional_remedies",
+          "confidence": 0.15670274198055267,
+          "correct": false
+        }
+      ]
+    },
+    "qa": {
+      "answered": 3,
+      "total": 3,
+      "details": [
+        {
+          "question": "What does Article 14 state?",
+          "answer": "",
+          "confidence": 0.5908509641885757
+        },
+        {
+          "question": "What is the punishment for murder?",
+          "answer": "",
+          "confidence": 0.5406863875687122
+        },
+        {
+          "question": "What is Article 21 about?",
+          "answer": "",
+          "confidence": 0.5947492867708206
+        }
+      ]
+    }
+  },
+  "summary": {
+    "classification_accuracy": 40.0,
+    "qa_answer_rate": 100.0
+  }
+}

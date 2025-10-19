@@ -1,0 +1,4 @@
+Requirement already satisfied: uvicorn in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (0.37.0)
+Requirement already satisfied: click>=7.0 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from uvicorn) (8.1.7)
+Requirement already satisfied: h11>=0.8 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from uvicorn) (0.16.0)
+Requirement already satisfied: colorama in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from click>=7.0->uvicorn) (0.4.6)

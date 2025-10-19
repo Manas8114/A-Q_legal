@@ -1,0 +1,60 @@
+{
+  "legal_documents": [
+    {
+      "section": "Section 420 IPC",
+      "legal_text": "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, or anything which is signed or sealed, and which is capable of being converted into a valuable security, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine.",
+      "simplified_summary": "If someone tricks another person into giving them money or property by lying, they can be jailed for up to 7 years and fined.",
+      "real_life_example": "A person sells fake gold jewelry claiming it's real gold, tricking customers into paying high prices.",
+      "punishment": "Imprisonment up to 7 years + Fine",
+      "keywords": [
+        "cheating",
+        "fraud",
+        "property",
+        "deception"
+      ],
+      "category": "Criminal"
+    },
+    {
+      "section": "Section 138 NI Act",
+      "legal_text": "Where any cheque drawn by a person on an account maintained by him with a banker for payment of any amount of money to another person from out of that account for the discharge, in whole or in part, of any debt or other liability, is returned by the bank unpaid, either because of the amount of money standing to the credit of that account is insufficient to honour the cheque or that it exceeds the amount arranged to be paid from that account by an agreement made with that bank, such person shall be deemed to have committed an offence.",
+      "simplified_summary": "If you write a check but don't have enough money in your account to pay it, you commit a crime.",
+      "real_life_example": "A person writes a check for ₹50,000 but only has ₹10,000 in their account.",
+      "punishment": "Imprisonment up to 2 years + Fine up to twice the check amount",
+      "keywords": [
+        "bounced check",
+        "insufficient funds",
+        "banking",
+        "debt"
+      ],
+      "category": "Criminal"
+    },
+    {
+      "section": "Section 299 IPC",
+      "legal_text": "Whoever causes death by doing an act with the intention of causing death, or with the intention of causing such bodily injury as is likely to cause death, or with the knowledge that he is likely by such act to cause death, commits the offence of culpable homicide.",
+      "simplified_summary": "If someone does something that they know could kill another person, and that person dies, it's called culpable homicide.",
+      "real_life_example": "A person hits someone on the head with a heavy object, knowing it could kill them, and the person dies.",
+      "punishment": "Life imprisonment or up to 10 years + Fine",
+      "keywords": [
+        "murder",
+        "homicide",
+        "death",
+        "intention"
+      ],
+      "category": "Criminal"
+    },
+    {
+      "section": "Section 125 CrPC",
+      "legal_text": "If any person having sufficient means neglects or refuses to maintain his wife, legitimate or illegitimate minor child, legitimate or illegitimate child (not being a married daughter) who has attained majority, where such child is, by reason of any physical or mental abnormality or injury unable to maintain itself, or his father or mother, unable to maintain himself or herself, a Magistrate of the first class may, upon proof of such neglect or refusal, order such person to make a monthly allowance for the maintenance of his wife or such child, father or mother, at such monthly rate not exceeding five hundred rupees in the whole, as such Magistrate thinks fit, and to pay the same to such person as the Magistrate from time to time directs.",
+      "simplified_summary": "If a person has money but refuses to take care of their family members who can't support themselves, a court can order them to pay monthly support.",
+      "real_life_example": "A man earns well but refuses to give money to his elderly parents who can't work anymore.",
+      "punishment": "Court order to pay monthly maintenance up to ₹500",
+      "keywords": [
+        "maintenance",
+        "family support",
+        "neglect",
+        "court order"
+      ],
+      "category": "Civil"
+    }
+  ]
+}

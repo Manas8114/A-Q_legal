@@ -1,0 +1,10 @@
+{
+  "downloaded_at": "2025-10-13T01:21:24.237171",
+  "files": [],
+  "failed_datasets": [
+    "calpra_cases_2015_2023",
+    "central_acts_list",
+    "pcma_cases_2015_2023"
+  ],
+  "total_size_mb": 0.0
+}

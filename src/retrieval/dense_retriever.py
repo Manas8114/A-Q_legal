@@ -31,9 +31,10 @@ class DenseRetriever:
         """Load sentence transformer model"""
         try:
             logger.info(f"Loading dense retrieval model: {self.model_name}")
-            self.model = SentenceTransformer(self.model_name)
-            self.model.to(self.device)
-            logger.info(f"Model loaded successfully on {self.device}")
+            # Force GPU usage if available
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            self.model = SentenceTransformer(self.model_name, device=device)
+            logger.info(f"Model loaded successfully on {device}")
         except Exception as e:
             logger.error(f"Failed to load model {self.model_name}: {e}")
             raise

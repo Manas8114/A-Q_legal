@@ -1,0 +1,30 @@
+2025-10-15 17:49:06.424 | INFO     | __main__:__init__:32 - ================================================================================
+2025-10-15 17:49:06.425 | INFO     | __main__:__init__:33 - 🚀 A-QLEGAL 2.0 - COMPLETE AUTOMATED SETUP & TRAINING
+2025-10-15 17:49:06.426 | INFO     | __main__:__init__:34 - ================================================================================
+2025-10-15 17:49:06.426 | INFO     | __main__:__init__:35 - Started at: 2025-10-15 17:49:06.421479
+2025-10-15 17:49:06.427 | INFO     | __main__:__init__:36 - Log file: logs/setup_20251015_174906.log
+2025-10-15 17:49:06.428 | INFO     | __main__:__init__:37 - ================================================================================
+2025-10-15 17:49:06.428 | INFO     | __main__:run_all:631 - 
+🎯 Total Steps: 12
+
+2025-10-15 17:49:06.429 | INFO     | __main__:run_all:634 - 
+▶️  Starting: Environment Verification (1/12)
+2025-10-15 17:49:06.429 | INFO     | __main__:step_1_verify_environment:41 - 
+================================================================================
+2025-10-15 17:49:06.430 | INFO     | __main__:step_1_verify_environment:42 - STEP 1/12: VERIFYING ENVIRONMENT
+2025-10-15 17:49:06.430 | INFO     | __main__:step_1_verify_environment:43 - ================================================================================
+2025-10-15 17:49:06.430 | INFO     | __main__:step_1_verify_environment:47 - Python version: 3.11.9
+2025-10-15 17:49:06.431 | SUCCESS  | __main__:step_1_verify_environment:53 - ✅ Python version OK
+2025-10-15 17:49:06.431 | INFO     | __main__:run_all:648 - ✅ Completed: Environment Verification
+
+2025-10-15 17:49:06.431 | INFO     | __main__:run_all:634 - 
+▶️  Starting: Dependency Installation (2/12)
+2025-10-15 17:49:06.432 | INFO     | __main__:step_2_install_dependencies:59 - 
+================================================================================
+2025-10-15 17:49:06.434 | INFO     | __main__:step_2_install_dependencies:60 - STEP 2/12: INSTALLING DEPENDENCIES
+2025-10-15 17:49:06.434 | INFO     | __main__:step_2_install_dependencies:61 - ================================================================================
+2025-10-15 17:49:06.436 | INFO     | __main__:step_2_install_dependencies:64 - Installing Python packages...
+2025-10-15 17:54:27.051 | INFO     | __main__:step_2_install_dependencies:71 - Downloading spaCy model...
+2025-10-15 17:54:35.755 | ERROR    | __main__:step_2_install_dependencies:89 - ❌ Dependency installation failed: Command '['C:\\Users\\msgok\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\\python.exe', '-m', 'spacy', 'download', 'en_core_web_sm']' returned non-zero exit status 1.
+2025-10-15 17:54:35.756 | ERROR    | __main__:run_all:639 - ❌ Dependency Installation failed!
+2025-10-15 17:54:35.756 | INFO     | __main__:run_all:640 - Setup cannot continue. Please fix errors and try again.

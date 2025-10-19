@@ -1,0 +1,8 @@
+Requirement already satisfied: sacrebleu in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (2.5.1)
+Requirement already satisfied: portalocker in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from sacrebleu) (3.2.0)
+Requirement already satisfied: regex in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from sacrebleu) (2023.12.25)
+Requirement already satisfied: tabulate>=0.8.9 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from sacrebleu) (0.9.0)
+Requirement already satisfied: numpy>=1.17 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from sacrebleu) (2.3.3)
+Requirement already satisfied: colorama in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from sacrebleu) (0.4.6)
+Requirement already satisfied: lxml in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from sacrebleu) (5.4.0)
+Requirement already satisfied: pywin32>=226 in c:\users\msgok\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from portalocker->sacrebleu) (306)

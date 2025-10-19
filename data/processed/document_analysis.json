@@ -1,0 +1,44 @@
+{
+  "clause_patterns": {
+    "obligations": [
+      "shall\\s+\\w+",
+      "must\\s+\\w+",
+      "is\\s+required\\s+to",
+      "has\\s+to\\s+\\w+"
+    ],
+    "rights": [
+      "entitled\\s+to",
+      "has\\s+the\\s+right\\s+to",
+      "may\\s+\\w+",
+      "can\\s+\\w+"
+    ],
+    "penalties": [
+      "punishment\\s+(?:of|up\\s+to|shall\\s+be)",
+      "fine\\s+(?:of|up\\s+to|not\\s+exceeding)",
+      "imprisonment\\s+(?:for|up\\s+to)",
+      "penalty\\s+(?:of|shall\\s+be)"
+    ],
+    "dates": [
+      "\\d{1,2}[/-]\\d{1,2}[/-]\\d{2,4}",
+      "\\d{1,2}\\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{4}"
+    ]
+  },
+  "risk_indicators": [
+    "unlimited liability",
+    "no warranty",
+    "force majeure",
+    "arbitration clause",
+    "governing law",
+    "termination clause",
+    "indemnification"
+  ],
+  "key_sections": [
+    "definitions",
+    "scope of work",
+    "payment terms",
+    "confidentiality",
+    "intellectual property",
+    "dispute resolution",
+    "termination"
+  ]
+}

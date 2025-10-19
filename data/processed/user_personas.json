@@ -1,0 +1,50 @@
+{
+  "student": {
+    "name": "Student Mode",
+    "description": "Simple explanations for law students",
+    "tone": "Educational and clear",
+    "example_prompt": "Explain this law as if teaching a law student",
+    "focus": [
+      "definitions",
+      "elements",
+      "examples",
+      "case studies"
+    ]
+  },
+  "citizen": {
+    "name": "Citizen Mode",
+    "description": "Practical advice for everyday situations",
+    "tone": "Friendly and practical",
+    "example_prompt": "Explain this law for a common citizen",
+    "focus": [
+      "practical_impact",
+      "rights",
+      "obligations",
+      "procedures"
+    ]
+  },
+  "business": {
+    "name": "Business Mode",
+    "description": "Legal compliance for businesses",
+    "tone": "Professional and actionable",
+    "example_prompt": "Explain this law for a business owner",
+    "focus": [
+      "compliance",
+      "penalties",
+      "documentation",
+      "best_practices"
+    ]
+  },
+  "lawyer": {
+    "name": "Lawyer Mode",
+    "description": "Detailed legal analysis",
+    "tone": "Technical and comprehensive",
+    "example_prompt": "Provide detailed legal analysis of this law",
+    "focus": [
+      "precedents",
+      "interpretations",
+      "amendments",
+      "citations"
+    ]
+  }
+}

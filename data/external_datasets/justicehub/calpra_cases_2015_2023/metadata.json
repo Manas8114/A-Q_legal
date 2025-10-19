@@ -1,0 +1,15 @@
+{
+  "name": "calpra_cases_2015_2023",
+  "title": "Analysis of CALPRA cases (2015-2023)",
+  "dataset_url": "https://justicehub.in/dataset/analysis-of-calpra-cases-2015-2023",
+  "files": [
+    "https://justicehub.in/dataset/02e70beb-c91c-40ef-9f15-4f7bb59c8d27/resource/f7fb2b6f-7e1f-4b3c-9c3b-0e8e4f0b8f0c/download/case-details.csv",
+    "https://justicehub.in/dataset/02e70beb-c91c-40ef-9f15-4f7bb59c8d27/resource/a8c3d4e5-6f7g-8h9i-0j1k-2l3m4n5o6p7q/download/case-transfers.csv",
+    "https://justicehub.in/dataset/02e70beb-c91c-40ef-9f15-4f7bb59c8d27/resource/b9d4e5f6-7g8h-9i0j-1k2l-3m4n5o6p7q8r/download/case-act-sections.csv"
+  ],
+  "priority": "CRITICAL",
+  "downloaded_at": "2025-10-13T01:21:13.546653",
+  "files_downloaded": 0,
+  "files_attempted": 3,
+  "local_files": []
+}

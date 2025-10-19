@@ -101,7 +101,7 @@ class AnswerRanker:
         return 0.5
     
     def _calculate_confidence_score(self, answer: Dict[str, Any]) -> float:
-        """Calculate confidence-based score"""
+        """Calculate confidence-based score with improved quality assessment"""
         if 'confidence' in answer:
             return float(answer['confidence'])
         
@@ -113,7 +113,55 @@ class AnswerRanker:
         if 'generative_confidence' in answer:
             return float(answer['generative_confidence'])
         
-        return 0.5
+        # Calculate confidence based on answer quality indicators
+        confidence = 0.4  # Lower base confidence for more realistic scoring
+        
+        if 'answer' in answer:
+            answer_text = answer['answer']
+            answer_length = len(answer_text)
+            
+            # Length-based confidence with better scaling
+            if answer_length > 20:
+                length_bonus = min(0.3, (answer_length - 20) / 300)  # Up to 0.3 bonus
+                confidence += length_bonus
+            
+            # Quality indicators
+            # Check for complete sentences
+            sentence_count = answer_text.count('.') + answer_text.count('!') + answer_text.count('?')
+            if sentence_count > 0:
+                confidence += min(0.15, sentence_count * 0.03)  # Up to 0.15 bonus
+            
+            # Check for proper capitalization and structure
+            if answer_text and answer_text[0].isupper() and answer_text.count(' ') > 2:
+                confidence += 0.05
+            
+            # Penalty for very short or incomplete answers
+            if answer_length < 10:
+                confidence *= 0.7
+            elif answer_length < 20:
+                confidence *= 0.85
+        
+        # Boost confidence for answers with context
+        if 'context' in answer and answer['context']:
+            context_length = len(answer['context'])
+            if context_length > 50:
+                confidence += 0.1
+            else:
+                confidence += 0.05
+        
+        # Boost confidence for answers with metadata
+        if 'metadata' in answer and answer['metadata']:
+            confidence += 0.05
+        
+        # Source-based confidence adjustment
+        if 'source' in answer:
+            if answer['source'] == 'extractive':
+                confidence *= 1.1  # Slight boost for extractive answers
+            elif answer['source'] == 'generative':
+                confidence *= 1.05  # Small boost for generative answers
+        
+        # Ensure confidence is within bounds
+        return min(max(confidence, 0.1), 0.95)
     
     def _text_similarity(self, text1: str, text2: str) -> float:
         """Calculate simple text similarity"""
@@ -134,7 +182,7 @@ class AnswerRanker:
         return intersection / union
     
     def select_best_answer(self, ranked_answers: List[Dict[str, Any]], 
-                          threshold: float = 0.7) -> Optional[Dict[str, Any]]:
+                          threshold: float = 0.5) -> Optional[Dict[str, Any]]:
         """Select the best answer based on threshold"""
         if not ranked_answers:
             return None
@@ -145,8 +193,12 @@ class AnswerRanker:
         if best_answer['combined_score'] >= threshold:
             return best_answer
         
-        # If no answer meets threshold, return None or the best available
-        return best_answer if best_answer['combined_score'] > 0.3 else None
+        # If no answer meets threshold, return the best available if it's reasonable
+        if best_answer['combined_score'] > 0.2:
+            return best_answer
+        
+        # Return None only if all answers are very poor
+        return None
     
     def get_answer_explanation(self, answer: Dict[str, Any]) -> Dict[str, Any]:
         """Get explanation for why an answer was ranked highly"""

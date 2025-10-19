@@ -1,0 +1,74 @@
+[
+  {
+    "dataset": "indian_legal_texts_finetuning",
+    "status": "ERROR",
+    "details": "An error occurred while generating the dataset\n\nAll the data files must have the same columns, but at some point there are 1 new columns ({'id'})\n\nThis happened while the json dataset builder was generating data using\n\nhf://datasets/Techmaestro369/indian-legal-texts-finetuning/crpc_qa.json (at revision 653a6e3fcf03b7d587e44d7a5ed09358c5bc660c)\n\nPlease either edit the data files to have matching columns, or separate them into different configurations (see docs at https://hf.co/docs/hub/datasets-manual-configuration#multiple-configurations)",
+    "timestamp": "2025-10-13T00:58:23.581292"
+  },
+  {
+    "dataset": "indian_law_dataset",
+    "status": "SUCCESS",
+    "details": "Downloaded 24607 entries",
+    "timestamp": "2025-10-13T00:58:28.520585"
+  },
+  {
+    "dataset": "llm_finetuning_indian_legal",
+    "status": "ERROR",
+    "details": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Users\\msgok\\AppData\\Local\\Programs\\Python\\Python312\\Scripts\\kaggle.exe\\__main__.py\", line 7, in <module>\n  File \"C:\\Users\\msgok\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\kaggle\\cli.py\", line 68, in main\n    out = args.func(**command_args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\msgok\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\kaggle\\api\\kaggle_api_extended.py\", line 1741, in dataset_download_cli\n    with self.build_kaggle_client() as kaggle:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\msgok\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\kaggle\\api\\kaggle_api_extended.py\", line 688, in build_kaggle_client\n    username=self.config_values['username'],\n             ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nKeyError: 'username'\n",
+    "timestamp": "2025-10-13T00:58:29.221594"
+  },
+  {
+    "dataset": "ildc",
+    "status": "ERROR",
+    "details": "[WinError 2] The system cannot find the file specified",
+    "timestamp": "2025-10-13T00:58:29.237757"
+  },
+  {
+    "dataset": "lawsum",
+    "status": "ERROR",
+    "details": "[WinError 2] The system cannot find the file specified",
+    "timestamp": "2025-10-13T00:58:29.253661"
+  },
+  {
+    "dataset": "mildsum",
+    "status": "ERROR",
+    "details": "[WinError 2] The system cannot find the file specified",
+    "timestamp": "2025-10-13T00:58:29.265658"
+  },
+  {
+    "dataset": "il_tur",
+    "status": "ERROR",
+    "details": "[WinError 2] The system cannot find the file specified",
+    "timestamp": "2025-10-13T00:58:29.277656"
+  },
+  {
+    "dataset": "lesicin",
+    "status": "ERROR",
+    "details": "[WinError 2] The system cannot find the file specified",
+    "timestamp": "2025-10-13T00:58:29.288656"
+  },
+  {
+    "dataset": "indiclegalqa",
+    "status": "MANUAL",
+    "details": "Download from https://www.researchgate.net/publication/391680464",
+    "timestamp": "2025-10-13T00:58:29.290659"
+  },
+  {
+    "dataset": "tathyanyaya",
+    "status": "MANUAL",
+    "details": "Download from https://arxiv.org/abs/2504.04737",
+    "timestamp": "2025-10-13T00:58:29.291658"
+  },
+  {
+    "dataset": "ddl_judicial",
+    "status": "MANUAL",
+    "details": "Download from https://www.devdatalab.org/judicial-data",
+    "timestamp": "2025-10-13T00:58:29.291658"
+  },
+  {
+    "dataset": "justice_hub",
+    "status": "MANUAL",
+    "details": "Download from https://justicehub.in/dataset",
+    "timestamp": "2025-10-13T00:58:29.292656"
+  }
+]

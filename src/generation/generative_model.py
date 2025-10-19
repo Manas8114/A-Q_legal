@@ -29,24 +29,10 @@ class GenerativeAnswerModel:
     
     def _load_model(self):
         """Load model and tokenizer"""
-        # Check if using Gemini
-        if "gemini" in self.model_name.lower() or self.api_key:
-            try:
-                self.gemini_model = GeminiGenerativeModel(
-                    api_key=self.api_key,
-                    model_name=self.model_name if "gemini" in self.model_name.lower() else "gemini-1.5-flash"
-                )
-                if self.gemini_model.is_available:
-                    self.use_gemini = True
-                    self.is_trained = True
-                    logger.info(f"Using Gemini model: {self.gemini_model.model_name}")
-                    return
-                else:
-                    logger.warning("Gemini model not available, falling back to local model")
-            except Exception as e:
-                logger.warning(f"Failed to initialize Gemini model: {e}")
+        # Prioritize local models first
+        logger.info(f"Loading local generative model: {self.model_name}")
         
-        # Load local model (T5/LLaMA)
+        # Load local model (GPT-2/T5/LLaMA) first
         try:
             if "t5" in self.model_name.lower():
                 self.tokenizer = T5Tokenizer.from_pretrained(self.model_name)
@@ -56,8 +42,13 @@ class GenerativeAnswerModel:
                     low_cpu_mem_usage=True
                 )
             else:
-                # For LLaMA or other models
+                # For GPT-2, LLaMA or other causal models
                 self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+                
+                # Add padding token if not present
+                if self.tokenizer.pad_token is None:
+                    self.tokenizer.pad_token = self.tokenizer.eos_token
+                
                 self.model = AutoModelForCausalLM.from_pretrained(
                     self.model_name,
                     torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
@@ -66,8 +57,28 @@ class GenerativeAnswerModel:
             
             self.model.to(self.device)
             logger.info(f"Loaded local generative model: {self.model_name}")
+            self.is_trained = True
         except Exception as e:
-            logger.warning(f"Failed to load model {self.model_name}: {e}")
+            logger.warning(f"Failed to load local model {self.model_name}: {e}")
+            
+            # Only try Gemini as fallback if explicitly requested and API key available
+            if "gemini" in self.model_name.lower() and self.api_key:
+                logger.info("Attempting to fallback to Gemini API...")
+                try:
+                    self.gemini_model = GeminiGenerativeModel(
+                        api_key=self.api_key,
+                        model_name=self.model_name
+                    )
+                    if self.gemini_model.is_available:
+                        self.use_gemini = True
+                        self.is_trained = True
+                        logger.info(f"Using Gemini model as fallback: {self.gemini_model.model_name}")
+                        return
+                    else:
+                        logger.warning("Gemini model not available")
+                except Exception as gemini_error:
+                    logger.warning(f"Failed to initialize Gemini model: {gemini_error}")
+            
             logger.info("Using fallback generative model")
             # Set to None to indicate fallback mode
             self.tokenizer = None
@@ -167,8 +178,9 @@ class GenerativeAnswerModel:
         return results
     
     def fine_tune(self, contexts: List[str], questions: List[str], answers: List[str],
-                  epochs: int = 3, batch_size: int = 4, learning_rate: float = 5e-5):
-        """Fine-tune the generative model"""
+                  epochs: int = 3, batch_size: int = 4, learning_rate: float = 5e-5,
+                  gradient_accumulation_steps: int = 4, max_grad_norm: float = 1.0):
+        """Fine-tune the generative model with memory optimization"""
         logger.info(f"Fine-tuning generative model on {len(contexts)} examples")
         
         # Check if model is available
@@ -186,22 +198,26 @@ class GenerativeAnswerModel:
                 'target': answer
             })
         
-        # Set up training
+        # Set up training with memory optimization
         self.model.train()
         optimizer = torch.optim.AdamW(self.model.parameters(), lr=learning_rate)
         
-        # Training loop
+        # Enable mixed precision for memory efficiency
+        scaler = torch.cuda.amp.GradScaler() if self.device == "cuda" else None
+        
+        # Training loop with memory optimization
         for epoch in range(epochs):
             total_loss = 0
             num_batches = len(train_data) // batch_size
+            optimizer.zero_grad()
             
             for i in range(0, len(train_data), batch_size):
                 batch = train_data[i:i+batch_size]
                 
-                # Prepare batch
+                # Prepare batch with shorter sequences for memory efficiency
                 inputs = self.tokenizer(
                     [item['input'] for item in batch],
-                    max_length=self.max_length,
+                    max_length=min(self.max_length, 1024),  # Limit sequence length
                     padding=True,
                     truncation=True,
                     return_tensors="pt"
@@ -209,38 +225,96 @@ class GenerativeAnswerModel:
                 
                 targets = self.tokenizer(
                     [item['target'] for item in batch],
-                    max_length=self.max_length,
+                    max_length=min(self.max_length, 512),  # Limit target length
                     padding=True,
                     truncation=True,
                     return_tensors="pt"
                 ).to(self.device)
                 
-                # Forward pass
-                if "t5" in self.model_name.lower():
-                    outputs = self.model(
-                        input_ids=inputs.input_ids,
-                        attention_mask=inputs.attention_mask,
-                        labels=targets.input_ids
-                    )
-                    loss = outputs.loss
+                # Forward pass with mixed precision
+                if scaler is not None:
+                    with torch.cuda.amp.autocast():
+                        if "t5" in self.model_name.lower():
+                            outputs = self.model(
+                                input_ids=inputs.input_ids,
+                                attention_mask=inputs.attention_mask,
+                                labels=targets.input_ids
+                            )
+                            loss = outputs.loss
+                        else:
+                            # For GPT-2, use next token prediction
+                            outputs = self.model(
+                                input_ids=inputs.input_ids,
+                                attention_mask=inputs.attention_mask,
+                                labels=inputs.input_ids
+                            )
+                            loss = outputs.loss
+                    
+                    # Scale loss for mixed precision
+                    loss = loss / gradient_accumulation_steps
+                    scaler.scale(loss).backward()
                 else:
-                    # For LLaMA, use next token prediction
-                    outputs = self.model(
-                        input_ids=inputs.input_ids,
-                        attention_mask=inputs.attention_mask,
-                        labels=inputs.input_ids
-                    )
-                    loss = outputs.loss
+                    # CPU training
+                    if "t5" in self.model_name.lower():
+                        outputs = self.model(
+                            input_ids=inputs.input_ids,
+                            attention_mask=inputs.attention_mask,
+                            labels=targets.input_ids
+                        )
+                        loss = outputs.loss
+                    else:
+                        outputs = self.model(
+                            input_ids=inputs.input_ids,
+                            attention_mask=inputs.attention_mask,
+                            labels=inputs.input_ids
+                        )
+                        loss = outputs.loss
+                    
+                    loss = loss / gradient_accumulation_steps
+                    loss.backward()
                 
-                # Backward pass
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
+                total_loss += loss.item() * gradient_accumulation_steps
                 
-                total_loss += loss.item()
+                # Gradient accumulation
+                if (i // batch_size + 1) % gradient_accumulation_steps == 0:
+                    if scaler is not None:
+                        # Check for inf/nan before unscaling
+                        if scaler._per_optimizer_states[optimizer]['stage'] == 'unscaled':
+                            # Skip unscaling if already unscaled
+                            torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_grad_norm)
+                            scaler.step(optimizer)
+                            scaler.update()
+                        else:
+                            # Safe unscaling with error handling
+                            try:
+                                scaler.unscale_(optimizer)
+                                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_grad_norm)
+                                scaler.step(optimizer)
+                                scaler.update()
+                            except ValueError as e:
+                                if "FP16 gradients" in str(e):
+                                    # Skip gradient clipping if FP16 issue
+                                    scaler.step(optimizer)
+                                    scaler.update()
+                                else:
+                                    raise e
+                    else:
+                        # Gradient clipping for CPU
+                        torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_grad_norm)
+                        optimizer.step()
+                    
+                    optimizer.zero_grad()
+                    
+                    # Clear GPU cache periodically
+                    if self.device == "cuda" and (i // batch_size + 1) % 100 == 0:
+                        torch.cuda.empty_cache()
             
             avg_loss = total_loss / num_batches
             logger.info(f"Epoch {epoch+1}/{epochs}, Average Loss: {avg_loss:.4f}")
+            
+            # Clear GPU cache after each epoch
+            if self.device == "cuda":
+                torch.cuda.empty_cache()
         
         self.is_trained = True
         logger.info("Generative model fine-tuning completed")

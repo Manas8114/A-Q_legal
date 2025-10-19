@@ -95,6 +95,32 @@ class AnswerCache:
                 logger.debug(f"Found similar answer for question: {question[:50]}...")
                 return entry
         
+        # If no exact similarity match, try fuzzy matching
+        question_words = set(question.lower().split())
+        best_match = None
+        best_score = 0.0
+        
+        for key, entry in self.cache.items():
+            entry_words = set(entry['question'].lower().split())
+            
+            # Calculate word overlap
+            intersection = len(question_words.intersection(entry_words))
+            union = len(question_words.union(entry_words))
+            
+            if union > 0:
+                similarity_score = intersection / union
+                if similarity_score > best_score and similarity_score >= 0.6:  # Lower threshold
+                    best_score = similarity_score
+                    best_match = entry
+        
+        if best_match:
+            # Update access info
+            best_match['access_count'] += 1
+            self.access_times[key] = time.time()
+            
+            logger.debug(f"Found fuzzy similar answer for question: {question[:50]}... (score: {best_score:.2f})")
+            return best_match
+        
         return None
     
     def get_cached_answers(self, question: str, 
@@ -136,18 +162,33 @@ class AnswerCache:
     def save_cache(self):
         """Save cache to disk"""
         try:
+            # Ensure directory exists
+            self.cache_file.parent.mkdir(parents=True, exist_ok=True)
+            
             cache_data = {
                 'cache': self.cache,
                 'access_times': self.access_times,
                 'max_size': self.max_size
             }
             
-            with open(self.cache_file, 'wb') as f:
+            # Create temporary file first, then rename for atomic operation
+            temp_file = self.cache_file.with_suffix('.tmp')
+            with open(temp_file, 'wb') as f:
                 pickle.dump(cache_data, f)
+            
+            # Atomic rename
+            temp_file.replace(self.cache_file)
             
             logger.info(f"Cache saved to {self.cache_file}")
         except Exception as e:
             logger.error(f"Failed to save cache: {e}")
+            # Try to clean up temp file if it exists
+            temp_file = self.cache_file.with_suffix('.tmp')
+            if temp_file.exists():
+                try:
+                    temp_file.unlink()
+                except:
+                    pass
     
     def load_cache(self):
         """Load cache from disk"""
@@ -174,6 +215,148 @@ class AnswerCache:
         self.cache.clear()
         self.access_times.clear()
         logger.info("Cache cleared")
+    
+    def force_save_cache(self):
+        """Force save cache and ensure file is created"""
+        try:
+            self.save_cache()
+            # Verify file was created
+            if self.cache_file.exists():
+                logger.info(f"Cache file verified: {self.cache_file}")
+                return True
+            else:
+                logger.error("Cache file was not created after save")
+                return False
+        except Exception as e:
+            logger.error(f"Failed to force save cache: {e}")
+            return False
+    
+    def remove_answer(self, question: str, context: str = "") -> bool:
+        """Remove a specific answer from cache"""
+        key = self._generate_key(question, context)
+        
+        if key in self.cache:
+            del self.cache[key]
+            if key in self.access_times:
+                del self.access_times[key]
+            logger.info(f"Removed answer for question: {question[:50]}...")
+            return True
+        
+        logger.warning(f"No answer found to remove for question: {question[:50]}...")
+        return False
+    
+    def remove_similar_answers(self, question: str, similarity_threshold: float = 0.8) -> int:
+        """Remove all similar answers from cache"""
+        sim_key = self._generate_similarity_key(question, similarity_threshold)
+        removed_count = 0
+        keys_to_remove = []
+        
+        # Find all similar entries
+        for key, entry in self.cache.items():
+            entry_sim_key = self._generate_similarity_key(entry['question'], similarity_threshold)
+            if sim_key == entry_sim_key:
+                keys_to_remove.append(key)
+        
+        # Remove found entries
+        for key in keys_to_remove:
+            if key in self.cache:
+                del self.cache[key]
+                removed_count += 1
+            if key in self.access_times:
+                del self.access_times[key]
+        
+        logger.info(f"Removed {removed_count} similar answers for question: {question[:50]}...")
+        return removed_count
+    
+    def remove_old_entries(self, max_age_hours: int = 24) -> int:
+        """Remove entries older than specified hours"""
+        current_time = time.time()
+        max_age_seconds = max_age_hours * 3600
+        removed_count = 0
+        keys_to_remove = []
+        
+        for key, entry in self.cache.items():
+            age = current_time - entry['timestamp']
+            if age > max_age_seconds:
+                keys_to_remove.append(key)
+        
+        # Remove old entries
+        for key in keys_to_remove:
+            if key in self.cache:
+                del self.cache[key]
+                removed_count += 1
+            if key in self.access_times:
+                del self.access_times[key]
+        
+        logger.info(f"Removed {removed_count} old entries (older than {max_age_hours} hours)")
+        return removed_count
+    
+    def remove_low_access_entries(self, min_access_count: int = 1) -> int:
+        """Remove entries with access count below threshold"""
+        removed_count = 0
+        keys_to_remove = []
+        
+        for key, entry in self.cache.items():
+            if entry['access_count'] < min_access_count:
+                keys_to_remove.append(key)
+        
+        # Remove low access entries
+        for key in keys_to_remove:
+            if key in self.cache:
+                del self.cache[key]
+                removed_count += 1
+            if key in self.access_times:
+                del self.access_times[key]
+        
+        logger.info(f"Removed {removed_count} low access entries (access count < {min_access_count})")
+        return removed_count
+    
+    def remove_entries_by_pattern(self, pattern: str, search_in: str = "question") -> int:
+        """Remove entries matching a pattern in specified field"""
+        import re
+        removed_count = 0
+        keys_to_remove = []
+        
+        try:
+            regex = re.compile(pattern, re.IGNORECASE)
+        except re.error:
+            logger.error(f"Invalid regex pattern: {pattern}")
+            return 0
+        
+        for key, entry in self.cache.items():
+            if search_in in entry and regex.search(str(entry[search_in])):
+                keys_to_remove.append(key)
+        
+        # Remove matching entries
+        for key in keys_to_remove:
+            if key in self.cache:
+                del self.cache[key]
+                removed_count += 1
+            if key in self.access_times:
+                del self.access_times[key]
+        
+        logger.info(f"Removed {removed_count} entries matching pattern '{pattern}' in {search_in}")
+        return removed_count
+    
+    def cleanup_cache(self, max_age_hours: int = 24, min_access_count: int = 1) -> Dict[str, int]:
+        """Comprehensive cache cleanup"""
+        logger.info("Starting comprehensive cache cleanup...")
+        
+        old_removed = self.remove_old_entries(max_age_hours)
+        low_access_removed = self.remove_low_access_entries(min_access_count)
+        
+        # Save cleaned cache
+        self.save_cache()
+        
+        cleanup_stats = {
+            'old_entries_removed': old_removed,
+            'low_access_entries_removed': low_access_removed,
+            'total_removed': old_removed + low_access_removed,
+            'remaining_entries': len(self.cache)
+        }
+        
+        logger.info(f"Cache cleanup completed: {cleanup_stats}")
+        return cleanup_stats
     
     def get_cache_stats(self) -> Dict[str, Any]:
         """Get cache statistics"""

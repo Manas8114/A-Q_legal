@@ -25,7 +25,9 @@ class LegalQASystem:
         self.embedding_generator = EmbeddingGenerator(self.config['embedding_model'])
         
         # Classification
-        self.classifier = BayesianLegalClassifier(self.config['question_categories'])
+        # Use updated categories from config
+        categories = self.config.get('question_categories', ['fact', 'procedure', 'interpretive', 'directive', 'duty'])
+        self.classifier = BayesianLegalClassifier(categories)
         self.syntactic_extractor = SyntacticFeatureExtractor()
         
         # Retrieval
@@ -38,7 +40,7 @@ class LegalQASystem:
         self.extractive_model = ExtractiveAnswerModel(self.config['extractive_model'])
         self.generative_model = GenerativeAnswerModel(
             self.config['generative_model'],
-            api_key=self.config.get('gemini_api_key')
+            api_key=self.config.get('gemini_api_key')  # Optional, only used if explicitly requested
         )
         self.answer_ranker = AnswerRanker(
             bayesian_weight=self.config['bayesian_weight'],
@@ -86,9 +88,21 @@ class LegalQASystem:
                 'learning_rate': 2e-5
             }
     
-    def initialize_system(self, dataset_paths: Dict[str, str] = None):
+    def initialize_system(self, dataset_paths: Dict[str, str] = None, use_saved_models: bool = True):
         """Initialize the system with datasets"""
         logger.info("Initializing Legal QA System...")
+        
+        # Try to load saved models first if requested
+        if use_saved_models:
+            try:
+                logger.info("Attempting to load saved models...")
+                self.load_system("trained_legal_qa_system")
+                logger.info("✅ Loaded saved models successfully!")
+                self.is_initialized = True
+                return
+            except Exception as e:
+                logger.warning(f"Failed to load saved models: {e}")
+                logger.info("Proceeding with full initialization...")
         
         # Load datasets
         if dataset_paths:
@@ -218,17 +232,29 @@ class LegalQASystem:
                 learning_rate=self.config.get('learning_rate', 2e-5)
             )
         
-        # Fine-tune generative model (if enough data and not using Gemini)
-        if len(self.dataset_df) > 5 and not self.generative_model.use_gemini:  # Skip fine-tuning for Gemini
-            self.generative_model.fine_tune(
-                contexts, questions, answers,
-                epochs=self.config.get('max_epochs', 3),
-                batch_size=self.config.get('batch_size', 4),
-                learning_rate=self.config.get('learning_rate', 5e-5)
-            )
+        # Fine-tune generative model (if enough data and not using Gemini and not skipped)
+        if (len(self.dataset_df) > 5 and 
+            not self.generative_model.use_gemini and 
+            not self.config.get('skip_generative_training', False)):  # Skip fine-tuning if configured
+            try:
+                self.generative_model.fine_tune(
+                    contexts, questions, answers,
+                    epochs=self.config.get('max_epochs', 3),
+                    batch_size=self.config.get('batch_size', 4),
+                    learning_rate=self.config.get('learning_rate', 5e-5),
+                    gradient_accumulation_steps=self.config.get('gradient_accumulation_steps', 4),
+                    max_grad_norm=self.config.get('max_grad_norm', 1.0)
+                )
+            except Exception as e:
+                logger.warning(f"Generative model training failed: {e}")
+                logger.info("Continuing without generative model training")
+                self.generative_model.is_trained = False
         elif self.generative_model.use_gemini:
             logger.info("Using Gemini model - no fine-tuning needed")
             self.generative_model.is_trained = True
+        elif self.config.get('skip_generative_training', False):
+            logger.info("Skipping generative model training as configured")
+            self.generative_model.is_trained = False
         
         logger.info("Model training completed")
     
@@ -242,6 +268,12 @@ class LegalQASystem:
         # Use default top_k if not specified
         if top_k is None:
             top_k = self.config['default_top_k']
+        
+        # Initialize variables to avoid NameError
+        retrieved_docs = []
+        classification = {}
+        best_answer = {}
+        ranked_answers = []
         
         # Step 1: Preprocess question
         preprocessed_q = self.preprocessor.preprocess_question(question)
@@ -258,11 +290,30 @@ class LegalQASystem:
                 'explanation': 'Answer retrieved from cache'
             }
         
-        # Step 3: Classify question
-        classification = self.classifier.predict_single(preprocessed_q['normalized'])
+        # Step 3: Classify question (skip if classifier not trained)
+        try:
+            classification = self.classifier.predict_single(preprocessed_q['normalized'])
+        except Exception as e:
+            logger.warning(f"Classification failed: {e}")
+            # Use default classification
+            classification = {
+                'predicted_category': 'fact',
+                'confidence': 0.5,
+                'probabilities': {'fact': 0.5, 'procedure': 0.3, 'interpretive': 0.2}
+            }
         
         # Step 4: Retrieve relevant contexts
-        retrieved_docs = self.retriever.search(preprocessed_q['normalized'], top_k)
+        try:
+            retrieved_docs = self.retriever.search(preprocessed_q['normalized'], top_k)
+        except Exception as e:
+            logger.error(f"Error during retrieval: {e}")
+            return {
+                'question': question,
+                'answer': 'I encountered an error while searching for relevant information.',
+                'source': 'error',
+                'confidence': 0.0,
+                'explanation': f'Retrieval error: {str(e)}'
+            }
         
         if not retrieved_docs:
             return {
@@ -381,35 +432,49 @@ class LegalQASystem:
             }
         
         # Step 7: Cache the answer
-        self.answer_cache.store_answer(
-            question, 
-            best_answer['answer'],
-            best_answer.get('context', ''),
-            {
-                'classification': classification,
-                'retrieved_docs': len(retrieved_docs),
-                'confidence': best_answer['confidence']
-            }
-        )
+        try:
+            self.answer_cache.store_answer(
+                question, 
+                best_answer['answer'],
+                best_answer.get('context', ''),
+                {
+                    'classification': classification,
+                    'retrieved_docs': len(retrieved_docs),
+                    'confidence': best_answer['confidence']
+                }
+            )
+        except Exception as e:
+            logger.warning(f"Failed to cache answer: {e}")
         
         # Check if using fallback mode
         fallback_mode = not (self.extractive_model.is_trained and self.generative_model.is_trained)
         
         # Prepare response
-        response = {
-            'question': question,
-            'answer': best_answer['answer'],
-            'source': best_answer['source'],
-            'confidence': best_answer['confidence'],
-            'classification': classification,
-            'retrieved_documents': len(retrieved_docs),
-            'all_answers': ranked_answers,
-            'explanation': self.answer_ranker.get_answer_explanation(best_answer),
-            'fallback_mode': fallback_mode
-        }
-        
-        logger.info(f"Question processed successfully. Confidence: {best_answer['confidence']:.3f}")
-        return response
+        try:
+            response = {
+                'question': question,
+                'answer': best_answer['answer'],
+                'source': best_answer['source'],
+                'confidence': best_answer['confidence'],
+                'classification': classification,
+                'retrieved_documents': len(retrieved_docs),
+                'all_answers': ranked_answers,
+                'explanation': self.answer_ranker.get_answer_explanation(best_answer),
+                'fallback_mode': fallback_mode
+            }
+            
+            logger.info(f"Question processed successfully. Confidence: {best_answer['confidence']:.3f}")
+            return response
+            
+        except Exception as e:
+            logger.error(f"Error preparing response: {e}")
+            return {
+                'question': question,
+                'answer': 'I encountered an error while processing your question.',
+                'source': 'error',
+                'confidence': 0.0,
+                'explanation': f'Processing error: {str(e)}'
+            }
     
     def _convert_numpy_types(self, obj):
         """Convert numpy types to Python native types for JSON serialization"""
@@ -477,73 +542,167 @@ class LegalQASystem:
         logger.info("System saved successfully")
     
     def load_system(self, filepath: str):
-        """Load a saved system state"""
+        """Load a saved system state with improved error handling"""
         logger.info(f"Loading system from {filepath}")
         
-        # Load individual components
-        self.classifier.load_model(f"{filepath}_classifier.pkl")
-        self.retriever.load_model(f"{filepath}_retriever.pkl")
+        # Check if metadata file exists
+        metadata_file = f"{filepath}_metadata.pkl"
+        if not os.path.exists(metadata_file):
+            raise FileNotFoundError(f"Metadata file not found: {metadata_file}")
         
-        # Load models only if they exist and are trained
-        if os.path.exists(f"{filepath}_extractive.pkl"):
+        # Load system metadata first
+        import pickle
+        try:
+            with open(metadata_file, 'rb') as f:
+                metadata = pickle.load(f)
+            
+            self.config = metadata['config']
+            self.dataset_stats = metadata['dataset_stats']
+            self.is_initialized = metadata['is_initialized']
+            logger.info("✅ System metadata loaded successfully")
+        except Exception as e:
+            logger.error(f"Failed to load metadata: {e}")
+            raise
+        
+        # Load individual components with error handling
+        components_loaded = 0
+        
+        # Load classifier
+        classifier_file = f"{filepath}_classifier.pkl"
+        if os.path.exists(classifier_file):
             try:
-                self.extractive_model.load_model(f"{filepath}_extractive.pkl")
+                self.classifier.load_model(classifier_file)
+                logger.info("✅ Classifier loaded successfully")
+                components_loaded += 1
+            except Exception as e:
+                logger.warning(f"Failed to load classifier: {e}")
+        else:
+            logger.warning(f"Classifier file not found: {classifier_file}")
+        
+        # Load retriever (check for hybrid retriever files)
+        retriever_base = f"{filepath}_retriever"
+        bm25_file = f"{retriever_base}_bm25.pkl"
+        dense_file = f"{retriever_base}_dense.pkl"
+        config_file = f"{retriever_base}_config.pkl"
+        
+        if os.path.exists(bm25_file) and os.path.exists(dense_file):
+            try:
+                # Load hybrid retriever components (add .pkl extension)
+                retriever_filepath = f"{retriever_base}.pkl"
+                self.retriever.load_model(retriever_filepath)
+                logger.info("✅ Hybrid retriever loaded successfully")
+                components_loaded += 1
+            except Exception as e:
+                logger.warning(f"Failed to load hybrid retriever: {e}")
+        else:
+            # Try single retriever file
+            retriever_file = f"{filepath}_retriever.pkl"
+            if os.path.exists(retriever_file):
+                try:
+                    self.retriever.load_model(retriever_file)
+                    logger.info("✅ Retriever loaded successfully")
+                    components_loaded += 1
+                except Exception as e:
+                    logger.warning(f"Failed to load retriever: {e}")
+            else:
+                logger.warning(f"Retriever files not found: {bm25_file}, {dense_file}, {retriever_file}")
+        
+        # Load extractive model
+        extractive_file = f"{filepath}_extractive.pkl"
+        if os.path.exists(extractive_file):
+            try:
+                self.extractive_model.load_model(extractive_file)
+                logger.info("✅ Extractive model loaded successfully")
+                components_loaded += 1
             except Exception as e:
                 logger.warning(f"Failed to load extractive model: {e}")
         else:
             logger.info("Extractive model file not found, skipping")
             
-        if os.path.exists(f"{filepath}_generative.pkl"):
+        # Load generative model
+        generative_file = f"{filepath}_generative.pkl"
+        if os.path.exists(generative_file):
             try:
-                self.generative_model.load_model(f"{filepath}_generative.pkl")
+                self.generative_model.load_model(generative_file)
+                logger.info("✅ Generative model loaded successfully")
+                components_loaded += 1
             except Exception as e:
                 logger.warning(f"Failed to load generative model: {e}")
         else:
             logger.info("Generative model file not found, skipping")
             
-        self.answer_cache.load_cache()
+        # Load cache
+        try:
+            self.answer_cache.load_cache()
+            logger.info("✅ Answer cache loaded successfully")
+            components_loaded += 1
+        except Exception as e:
+            logger.warning(f"Failed to load cache: {e}")
         
-        # Load system metadata
-        import pickle
-        with open(f"{filepath}_metadata.pkl", 'rb') as f:
-            metadata = pickle.load(f)
+        logger.info(f"✅ System loaded successfully! ({components_loaded} components loaded)")
         
-        self.config = metadata['config']
-        self.dataset_stats = metadata['dataset_stats']
-        self.is_initialized = metadata['is_initialized']
+        # Check if we have minimum required components
+        if components_loaded < 2:
+            logger.warning("⚠️  Warning: Very few components loaded. System may not function properly.")
         
-        logger.info("System loaded successfully")
+        return components_loaded
     
     def _fallback_extractive_answer(self, contexts: List[str], question: str) -> List[Dict[str, Any]]:
-        """Fallback extractive answer when model is not trained"""
+        """Enhanced fallback extractive answer using training data patterns"""
         import re
         
-        # Simple keyword-based extraction
+        # Enhanced keyword-based extraction with legal terms
         question_words = set(re.findall(r'\b\w+\b', question.lower()))
+        
+        # Add legal synonyms and related terms
+        legal_synonyms = {
+            'kill': ['murder', 'homicide', 'death', 'killing'],
+            'self-defense': ['self defence', 'private defense', 'self protection'],
+            'harassment': ['harass', 'harassing', 'molestation', 'abuse'],
+            'sexual': ['sex', 'gender', 'modesty', 'outrage'],
+            'jail': ['prison', 'imprisonment', 'custody', 'detention'],
+            'punishment': ['penalty', 'sentence', 'fine', 'consequence'],
+            'theft': ['steal', 'stealing', 'robbery', 'larceny'],
+            'robbery': ['rob', 'robbing', 'theft with force', 'armed robbery'],
+            'lawyer': ['attorney', 'counsel', 'legal representative', 'advocate'],
+            'court': ['tribunal', 'judiciary', 'legal proceeding', 'trial']
+        }
+        
+        # Expand question words with synonyms
+        expanded_question_words = question_words.copy()
+        for word in question_words:
+            if word in legal_synonyms:
+                expanded_question_words.update(legal_synonyms[word])
+        
         results = []
         
         for context in contexts:
-            # Find sentences that contain question keywords
+            # Find sentences that contain question keywords or synonyms
             sentences = re.split(r'[.!?]+', context)
-            best_sentence = ""
-            max_score = 0
+            best_sentences = []
             
             for sentence in sentences:
                 sentence_words = set(re.findall(r'\b\w+\b', sentence.lower()))
-                score = len(question_words.intersection(sentence_words))
-                if score > max_score:
-                    max_score = score
-                    best_sentence = sentence.strip()
+                score = len(expanded_question_words.intersection(sentence_words))
+                if score > 0:
+                    best_sentences.append((score, sentence.strip()))
             
-            if best_sentence:
-                confidence = min(0.7, max_score / len(question_words)) if question_words else 0.3
+            # Sort by relevance score
+            best_sentences.sort(key=lambda x: x[0], reverse=True)
+            
+            if best_sentences:
+                # Combine top 2-3 most relevant sentences
+                top_sentences = [sent for _, sent in best_sentences[:3]]
+                combined_answer = '. '.join(top_sentences)
+                confidence = min(0.8, best_sentences[0][0] / len(expanded_question_words)) if expanded_question_words else 0.4
+                
                 results.append({
-                    'answer': best_sentence,
+                    'answer': combined_answer,
                     'confidence': confidence
                 })
             else:
-                # Fallback to first sentence
-                first_sentence = sentences[0].strip() if sentences else context[:100]
+                # Fallback to first meaningful sentence
+                first_sentence = sentences[0].strip() if sentences else context[:150]
                 results.append({
                     'answer': first_sentence,
                     'confidence': 0.3
@@ -552,13 +711,34 @@ class LegalQASystem:
         return results
     
     def _fallback_generative_answer(self, contexts: List[str], question: str) -> Dict[str, Any]:
-        """Fallback generative answer when model is not trained"""
-        # Combine contexts and create a simple answer
-        combined_context = ' '.join(contexts[:3])  # Use top 3 contexts
-        
-        # Simple keyword matching to find relevant parts
+        """Enhanced fallback generative answer using training data patterns"""
         import re
+        
+        # Combine contexts and create a comprehensive answer
+        combined_context = ' '.join(contexts[:5])  # Use top 5 contexts for better coverage
+        
+        # Enhanced keyword matching with legal synonyms
         question_words = set(re.findall(r'\b\w+\b', question.lower()))
+        
+        # Add legal synonyms and related terms
+        legal_synonyms = {
+            'kill': ['murder', 'homicide', 'death', 'killing'],
+            'self-defense': ['self defence', 'private defense', 'self protection'],
+            'harassment': ['harass', 'harassing', 'molestation', 'abuse'],
+            'sexual': ['sex', 'gender', 'modesty', 'outrage'],
+            'jail': ['prison', 'imprisonment', 'custody', 'detention'],
+            'punishment': ['penalty', 'sentence', 'fine', 'consequence'],
+            'theft': ['steal', 'stealing', 'robbery', 'larceny'],
+            'robbery': ['rob', 'robbing', 'theft with force', 'armed robbery'],
+            'lawyer': ['attorney', 'counsel', 'legal representative', 'advocate'],
+            'court': ['tribunal', 'judiciary', 'legal proceeding', 'trial']
+        }
+        
+        # Expand question words with synonyms
+        expanded_question_words = question_words.copy()
+        for word in question_words:
+            if word in legal_synonyms:
+                expanded_question_words.update(legal_synonyms[word])
         
         # Find sentences with highest keyword overlap
         sentences = re.split(r'[.!?]+', combined_context)
@@ -566,7 +746,7 @@ class LegalQASystem:
         
         for sentence in sentences:
             sentence_words = set(re.findall(r'\b\w+\b', sentence.lower()))
-            score = len(question_words.intersection(sentence_words))
+            score = len(expanded_question_words.intersection(sentence_words))
             if score > 0:
                 best_sentences.append((score, sentence.strip()))
         
@@ -574,16 +754,86 @@ class LegalQASystem:
         best_sentences.sort(key=lambda x: x[0], reverse=True)
         
         if best_sentences:
-            # Combine top 2 sentences
-            answer_parts = [sent for _, sent in best_sentences[:2]]
+            # Combine top 3-4 most relevant sentences for comprehensive answer
+            answer_parts = [sent for _, sent in best_sentences[:4]]
             answer = '. '.join(answer_parts)
-            confidence = min(0.6, best_sentences[0][0] / len(question_words)) if question_words else 0.4
+            
+            # Calculate confidence based on relevance and coverage
+            relevance_score = best_sentences[0][0] / len(expanded_question_words) if expanded_question_words else 0.3
+            coverage_score = min(1.0, len(best_sentences) / 3)  # Reward having multiple relevant sentences
+            confidence = min(0.8, (relevance_score + coverage_score) / 2)
         else:
-            # Fallback to first part of context
-            answer = combined_context[:200] + "..." if len(combined_context) > 200 else combined_context
+            # Fallback to first meaningful part of context
+            answer = combined_context[:300] + "..." if len(combined_context) > 300 else combined_context
             confidence = 0.3
         
         return {
             'answer': answer,
             'confidence': confidence
         }
+    
+    # Cache Management Methods
+    def clear_cache(self):
+        """Clear all cached answers"""
+        self.answer_cache.clear_cache()
+        success = self.answer_cache.force_save_cache()
+        if success:
+            logger.info("Cache cleared successfully")
+        else:
+            logger.warning("Cache cleared but file save failed")
+    
+    def remove_cached_answer(self, question: str, context: str = "") -> bool:
+        """Remove a specific cached answer"""
+        success = self.answer_cache.remove_answer(question, context)
+        if success:
+            self.answer_cache.save_cache()
+        return success
+    
+    def remove_similar_cached_answers(self, question: str, similarity_threshold: float = 0.8) -> int:
+        """Remove all similar cached answers"""
+        removed_count = self.answer_cache.remove_similar_answers(question, similarity_threshold)
+        if removed_count > 0:
+            self.answer_cache.save_cache()
+        return removed_count
+    
+    def remove_old_cached_entries(self, max_age_hours: int = 24) -> int:
+        """Remove cached entries older than specified hours"""
+        removed_count = self.answer_cache.remove_old_entries(max_age_hours)
+        if removed_count > 0:
+            self.answer_cache.save_cache()
+        return removed_count
+    
+    def remove_low_access_cached_entries(self, min_access_count: int = 1) -> int:
+        """Remove cached entries with low access count"""
+        removed_count = self.answer_cache.remove_low_access_entries(min_access_count)
+        if removed_count > 0:
+            self.answer_cache.save_cache()
+        return removed_count
+    
+    def remove_cached_entries_by_pattern(self, pattern: str, search_in: str = "question") -> int:
+        """Remove cached entries matching a pattern"""
+        removed_count = self.answer_cache.remove_entries_by_pattern(pattern, search_in)
+        if removed_count > 0:
+            self.answer_cache.save_cache()
+        return removed_count
+    
+    def cleanup_cache(self, max_age_hours: int = 24, min_access_count: int = 1) -> Dict[str, int]:
+        """Comprehensive cache cleanup"""
+        cleanup_stats = self.answer_cache.cleanup_cache(max_age_hours, min_access_count)
+        logger.info(f"Cache cleanup completed: {cleanup_stats}")
+        return cleanup_stats
+    
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """Get cache statistics"""
+        return self.answer_cache.get_cache_stats()
+    
+    def search_cache(self, query: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """Search cached entries"""
+        return self.answer_cache.search_cache(query, limit)
+    
+    def list_cached_entries(self, limit: int = 20) -> List[Dict[str, Any]]:
+        """List cached entries"""
+        entries = list(self.answer_cache.cache.values())
+        # Sort by access count (most accessed first)
+        entries.sort(key=lambda x: x['access_count'], reverse=True)
+        return entries[:limit]

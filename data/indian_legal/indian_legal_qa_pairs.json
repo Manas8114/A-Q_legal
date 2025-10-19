@@ -1,0 +1,104 @@
+[
+  {
+    "question": "What is Equality before law under Article 14?",
+    "answer": "Article 14: Equality before law - The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+    "context": "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "Explain Article 14 of the Indian Constitution",
+    "answer": "Article 14 states: The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+    "context": "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+    "category": "constitutional_law"
+  },
+  {
+    "question": "What is Protection of certain rights regarding freedom of speech under Article 19?",
+    "answer": "Article 19: Protection of certain rights regarding freedom of speech - All citizens shall have the right to freedom of speech and expression; to assemble peaceably and without arms; to form associations or unions; to move freely throughout the territory of India; to reside and settle in any part of the territory of India; and to practice any profession, or to carry on any occupation, trade or business.",
+    "context": "All citizens shall have the right to freedom of speech and expression; to assemble peaceably and without arms; to form associations or unions; to move freely throughout the territory of India; to reside and settle in any part of the territory of India; and to practice any profession, or to carry on any occupation, trade or business.",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "Explain Article 19 of the Indian Constitution",
+    "answer": "Article 19 states: All citizens shall have the right to freedom of speech and expression; to assemble peaceably and without arms; to form associations or unions; to move freely throughout the territory of India; to reside and settle in any part of the territory of India; and to practice any profession, or to carry on any occupation, trade or business.",
+    "context": "All citizens shall have the right to freedom of speech and expression; to assemble peaceably and without arms; to form associations or unions; to move freely throughout the territory of India; to reside and settle in any part of the territory of India; and to practice any profession, or to carry on any occupation, trade or business.",
+    "category": "constitutional_law"
+  },
+  {
+    "question": "What is Protection of life and personal liberty under Article 21?",
+    "answer": "Article 21: Protection of life and personal liberty - No person shall be deprived of his life or personal liberty except according to procedure established by law.",
+    "context": "No person shall be deprived of his life or personal liberty except according to procedure established by law.",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "Explain Article 21 of the Indian Constitution",
+    "answer": "Article 21 states: No person shall be deprived of his life or personal liberty except according to procedure established by law.",
+    "context": "No person shall be deprived of his life or personal liberty except according to procedure established by law.",
+    "category": "constitutional_law"
+  },
+  {
+    "question": "What is Remedies for enforcement of rights under Article 32?",
+    "answer": "Article 32: Remedies for enforcement of rights - The right to move the Supreme Court by appropriate proceedings for the enforcement of the rights conferred by this Part is guaranteed.",
+    "context": "The right to move the Supreme Court by appropriate proceedings for the enforcement of the rights conferred by this Part is guaranteed.",
+    "category": "remedies"
+  },
+  {
+    "question": "Explain Article 32 of the Indian Constitution",
+    "answer": "Article 32 states: The right to move the Supreme Court by appropriate proceedings for the enforcement of the rights conferred by this Part is guaranteed.",
+    "context": "The right to move the Supreme Court by appropriate proceedings for the enforcement of the rights conferred by this Part is guaranteed.",
+    "category": "constitutional_law"
+  },
+  {
+    "question": "What is the Right to Equality and how can it be enforced?",
+    "answer": "The Right to Equality is guaranteed under Articles 14, 15, 16, 17, 18 of the Indian Constitution. Ensures equality before law and equal protection of laws It can be enforced through Can be enforced through writ petitions under Article 32 (Supreme Court) or Article 226 (High Courts).",
+    "context": "Ensures equality before law and equal protection of laws Can be enforced through writ petitions under Article 32 (Supreme Court) or Article 226 (High Courts)",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "What is the Right to Freedom and how can it be enforced?",
+    "answer": "The Right to Freedom is guaranteed under Articles 19, 20, 21, 22 of the Indian Constitution. Includes freedom of speech, assembly, association, movement, residence, and profession It can be enforced through Enforceable through constitutional remedies and judicial review.",
+    "context": "Includes freedom of speech, assembly, association, movement, residence, and profession Enforceable through constitutional remedies and judicial review",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "What is the Right against Exploitation and how can it be enforced?",
+    "answer": "The Right against Exploitation is guaranteed under Articles 23, 24 of the Indian Constitution. Prohibits trafficking, forced labor, and child labor It can be enforced through Enforced through criminal law and constitutional remedies.",
+    "context": "Prohibits trafficking, forced labor, and child labor Enforced through criminal law and constitutional remedies",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "What is the Right to Freedom of Religion and how can it be enforced?",
+    "answer": "The Right to Freedom of Religion is guaranteed under Articles 25, 26, 27, 28 of the Indian Constitution. Freedom to practice, profess, and propagate religion It can be enforced through Protected through constitutional remedies and secular principles.",
+    "context": "Freedom to practice, profess, and propagate religion Protected through constitutional remedies and secular principles",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "What is the Cultural and Educational Rights and how can it be enforced?",
+    "answer": "The Cultural and Educational Rights is guaranteed under Articles 29, 30 of the Indian Constitution. Right to conserve culture and establish educational institutions It can be enforced through Enforced through constitutional remedies and minority rights.",
+    "context": "Right to conserve culture and establish educational institutions Enforced through constitutional remedies and minority rights",
+    "category": "fundamental_rights"
+  },
+  {
+    "question": "What does Fundamental Rights mean in Indian law?",
+    "answer": "Fundamental Rights refers to Basic human rights guaranteed by the Indian Constitution under Part III. Examples include: Right to Equality, Right to Freedom, Right against Exploitation.",
+    "context": "Basic human rights guaranteed by the Indian Constitution under Part III",
+    "category": "legal_terminology"
+  },
+  {
+    "question": "What does Writ Petition mean in Indian law?",
+    "answer": "Writ Petition refers to A formal written application to a court requesting judicial action. Examples include: Habeas Corpus, Mandamus, Prohibition, Certiorari, Quo Warranto.",
+    "context": "A formal written application to a court requesting judicial action",
+    "category": "legal_terminology"
+  },
+  {
+    "question": "What does Constitutional Remedy mean in Indian law?",
+    "answer": "Constitutional Remedy refers to Legal recourse available under Articles 32 and 226 of the Constitution. Examples include: Supreme Court writs, High Court writs, Constitutional petitions.",
+    "context": "Legal recourse available under Articles 32 and 226 of the Constitution",
+    "category": "legal_terminology"
+  },
+  {
+    "question": "What does Judicial Review mean in Indian law?",
+    "answer": "Judicial Review refers to Power of courts to review and invalidate unconstitutional laws or actions. Examples include: Constitutional validity, Administrative review, Legislative review.",
+    "context": "Power of courts to review and invalidate unconstitutional laws or actions",
+    "category": "legal_terminology"
+  }
+]

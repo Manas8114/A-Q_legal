@@ -1,0 +1,16 @@
+{
+  "name": "central_acts_list",
+  "title": "Chronological List Of Central Acts",
+  "dataset_url": "https://justicehub.in/dataset/chronological-list-of-central-acts",
+  "files": [
+    "https://justicehub.in/dataset/chronological-list-of-central-acts/resource/alphabetical-list.pdf",
+    "https://justicehub.in/dataset/chronological-list-of-central-acts/resource/chronological-list.pdf"
+  ],
+  "priority": "CRITICAL",
+  "downloaded_at": "2025-10-13T01:21:18.726137",
+  "files_downloaded": 0,
+  "files_attempted": 2,
+  "local_files": [
+    "Download"
+  ]
+}

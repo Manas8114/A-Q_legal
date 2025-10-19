@@ -1,0 +1,54 @@
+[
+  {
+    "right": "Right to Equality",
+    "articles": [
+      "14",
+      "15",
+      "16",
+      "17",
+      "18"
+    ],
+    "description": "Ensures equality before law and equal protection of laws",
+    "enforcement": "Can be enforced through writ petitions under Article 32 (Supreme Court) or Article 226 (High Courts)"
+  },
+  {
+    "right": "Right to Freedom",
+    "articles": [
+      "19",
+      "20",
+      "21",
+      "22"
+    ],
+    "description": "Includes freedom of speech, assembly, association, movement, residence, and profession",
+    "enforcement": "Enforceable through constitutional remedies and judicial review"
+  },
+  {
+    "right": "Right against Exploitation",
+    "articles": [
+      "23",
+      "24"
+    ],
+    "description": "Prohibits trafficking, forced labor, and child labor",
+    "enforcement": "Enforced through criminal law and constitutional remedies"
+  },
+  {
+    "right": "Right to Freedom of Religion",
+    "articles": [
+      "25",
+      "26",
+      "27",
+      "28"
+    ],
+    "description": "Freedom to practice, profess, and propagate religion",
+    "enforcement": "Protected through constitutional remedies and secular principles"
+  },
+  {
+    "right": "Cultural and Educational Rights",
+    "articles": [
+      "29",
+      "30"
+    ],
+    "description": "Right to conserve culture and establish educational institutions",
+    "enforcement": "Enforced through constitutional remedies and minority rights"
+  }
+]

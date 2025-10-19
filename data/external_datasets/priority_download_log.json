@@ -1,0 +1,26 @@
+{
+  "downloaded_at": "2025-10-13T00:56:04.765971",
+  "datasets": [
+    {
+      "name": "indian_legal_texts_finetuning",
+      "entries": 0,
+      "source": "huggingface"
+    },
+    {
+      "name": "indian_law_dataset",
+      "entries": 24607,
+      "source": "huggingface"
+    },
+    {
+      "name": "ildc",
+      "entries": 35000,
+      "source": "github"
+    },
+    {
+      "name": "lawsum",
+      "entries": 10000,
+      "source": "github"
+    }
+  ],
+  "total_estimated": 24607
+}

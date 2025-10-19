@@ -6,6 +6,8 @@ import google.generativeai as genai
 from typing import List, Dict, Any, Optional
 from loguru import logger
 import time
+import requests
+import socket
 
 
 class GeminiGenerativeModel:
@@ -22,7 +24,25 @@ class GeminiGenerativeModel:
             logger.warning("No Gemini API key provided. Set GEMINI_API_KEY environment variable or pass api_key parameter.")
             return
         
+        # Check internet connection first
+        if not self._check_internet_connection():
+            raise ConnectionError("No internet connection available. Gemini API requires internet access.")
+        
         self._initialize_model()
+    
+    def _check_internet_connection(self) -> bool:
+        """Check if internet connection is available"""
+        try:
+            # Try to connect to Google's DNS
+            socket.create_connection(("8.8.8.8", 53), timeout=3)
+            return True
+        except OSError:
+            try:
+                # Try to connect to Google's API endpoint
+                response = requests.get("https://generativelanguage.googleapis.com", timeout=5)
+                return response.status_code in [200, 404]  # 404 is fine, means endpoint exists
+            except:
+                return False
     
     def _initialize_model(self):
         """Initialize the Gemini model"""

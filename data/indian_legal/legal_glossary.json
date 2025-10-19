@@ -1,0 +1,40 @@
+[
+  {
+    "term": "Fundamental Rights",
+    "definition": "Basic human rights guaranteed by the Indian Constitution under Part III",
+    "examples": [
+      "Right to Equality",
+      "Right to Freedom",
+      "Right against Exploitation"
+    ]
+  },
+  {
+    "term": "Writ Petition",
+    "definition": "A formal written application to a court requesting judicial action",
+    "examples": [
+      "Habeas Corpus",
+      "Mandamus",
+      "Prohibition",
+      "Certiorari",
+      "Quo Warranto"
+    ]
+  },
+  {
+    "term": "Constitutional Remedy",
+    "definition": "Legal recourse available under Articles 32 and 226 of the Constitution",
+    "examples": [
+      "Supreme Court writs",
+      "High Court writs",
+      "Constitutional petitions"
+    ]
+  },
+  {
+    "term": "Judicial Review",
+    "definition": "Power of courts to review and invalidate unconstitutional laws or actions",
+    "examples": [
+      "Constitutional validity",
+      "Administrative review",
+      "Legislative review"
+    ]
+  }
+]

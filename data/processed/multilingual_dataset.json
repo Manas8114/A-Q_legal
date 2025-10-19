@@ -1,0 +1,602 @@
+[
+  {
+    "language": "en",
+    "query": "Explain IPC Section 121: Waging war against Government of India in simple terms",
+    "response": "Punishment: Death or life imprisonment  fine.",
+    "doc_id": "ipc_121"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 121A: Conspiracy to wage war in simple terms",
+    "response": "Punishment: Life imprisonment or 10 years  fine.",
+    "doc_id": "ipc_121A"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 122: Collecting arms with intent to wage war in simple terms",
+    "response": "Punishment: Life imprisonment or 10 years  fine.",
+    "doc_id": "ipc_122"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 123: Concealing with intent to facilitate waging war in simple terms",
+    "response": "Punishment: 10 years  fine.",
+    "doc_id": "ipc_123"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 124: Assaulting President, Governor in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_124"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 124A: Sedition in simple terms",
+    "response": "Punishment: Life imprisonment or 3 years  fine.",
+    "doc_id": "ipc_124A"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 125: Waging war against Asiatic Power in alliance in simple terms",
+    "response": "Punishment: Life imprisonment  fine or 7 years  fine.",
+    "doc_id": "ipc_125"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 141: Unlawful assembly in simple terms",
+    "response": "Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_141"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 142: Being member of unlawful assembly in simple terms",
+    "response": "Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_142"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 143: Punishment for unlawful assembly in simple terms",
+    "response": "Section 143 of the Indian Penal Code, 1860 deals with Punishment for unlawful assembly. Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_143"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 144: Joining unlawful assembly armed with deadly weapon in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_144"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 145: Joining or continuing in unlawful assembly in simple terms",
+    "response": "Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_145"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 146: Rioting in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_146"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 147: Rioting armed with deadly weapon in simple terms",
+    "response": "Punishment: 3 years or fine or both.",
+    "doc_id": "ipc_147"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 148: Rioting with deadly weapon in simple terms",
+    "response": "Punishment: 3 years or fine or both.",
+    "doc_id": "ipc_148"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 161: Public servant taking illegal gratification in simple terms",
+    "response": "Punishment: 3 years or fine or both.",
+    "doc_id": "ipc_161"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 162: Taking gratification to influence public servant in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_162"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 163: Taking gratification for exercise of personal influence in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_163"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 165: Public servant obtaining valuable thing from person concerned in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_165"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 166: Public servant disobeying law with intent to cause injury in simple terms",
+    "response": "Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_166"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 167: Public servant framing incorrect document in simple terms",
+    "response": "Punishment: 3 years or fine or both.",
+    "doc_id": "ipc_167"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 168: Public servant unlawfully engaging in trade in simple terms",
+    "response": "Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_168"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 169: Public servant unlawfully buying property in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_169"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 172: Absconding to avoid service of summons in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_172"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 173: Preventing service of summons in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_173"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 174: Non-attendance in obedience to order in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_174"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 175: Omission to produce document in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_175"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 176: Omission to give notice or information in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_176"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 177: Furnishing false information in simple terms",
+    "response": "Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_177"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 178: Refusing oath when required in simple terms",
+    "response": "Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_178"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 191: Giving false evidence in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_191"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 192: Fabricating false evidence in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_192"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 193: Punishment for false evidence in simple terms",
+    "response": "Section 193 of the Indian Penal Code, 1860 deals with Punishment for false evidence. Punishment: 7 years  fine.",
+    "doc_id": "ipc_193"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 194: Giving false evidence with intent to procure conviction in simple terms",
+    "response": "Punishment: Life imprisonment or 7 years  fine.",
+    "doc_id": "ipc_194"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 195: Giving false evidence to procure conviction for capital offense in simple terms",
+    "response": "Punishment: Same as offense.",
+    "doc_id": "ipc_195"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 201: Causing disappearance of evidence in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_201"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 202: Intentional omission to give information in simple terms",
+    "response": "Punishment: 6 months or fine or both.",
+    "doc_id": "ipc_202"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 203: Giving false information respecting offense in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_203"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 204: Destruction of document to prevent production in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_204"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 205: False personation for purpose of act or proceeding in simple terms",
+    "response": "Punishment: 3 years or fine or both.",
+    "doc_id": "ipc_205"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 206: Fraudulent removal or concealment of property in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_206"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 230: Counterfeiting coin in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_230"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 231: Counterfeiting current coin in simple terms",
+    "response": "Punishment: 10 years  fine.",
+    "doc_id": "ipc_231"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 232: Possession of counterfeit coin in simple terms",
+    "response": "Punishment: 3 years  fine.",
+    "doc_id": "ipc_232"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 233: Making or selling instrument for counterfeiting coin in simple terms",
+    "response": "Punishment: 3 years  fine.",
+    "doc_id": "ipc_233"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 234: Making or selling instrument for counterfeiting Indian coin in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_234"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 264: Fraudulent use of false instrument for weighing in simple terms",
+    "response": "Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_264"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 265: Fraudulent use of false weight or measure in simple terms",
+    "response": "Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_265"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 299: Culpable homicide in simple terms",
+    "response": "Punishment: Life imprisonment or 10 years  fine.",
+    "doc_id": "ipc_299"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 300: Murder in simple terms",
+    "response": "Punishment: Death or life imprisonment  fine.",
+    "doc_id": "ipc_300"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 301: Culpable homicide by causing death of person other than intended in simple terms",
+    "response": "Punishment: Same as for intended person.",
+    "doc_id": "ipc_301"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 302: Punishment for murder in simple terms",
+    "response": "Section 302 of the Indian Penal Code, 1860 deals with Punishment for murder. Punishment: Death or life imprisonment  fine.",
+    "doc_id": "ipc_302"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 303: Punishment for murder by life convict in simple terms",
+    "response": "Section 303 of the Indian Penal Code, 1860 deals with Punishment for murder by life convict. Punishment: Death.",
+    "doc_id": "ipc_303"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 304: Culpable homicide not amounting to murder in simple terms",
+    "response": "Punishment: Life imprisonment or 10 years  fine.",
+    "doc_id": "ipc_304"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 304A: Causing death by negligence in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_304A"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 304B: Dowry death in simple terms",
+    "response": "Punishment: 7 years to life imprisonment.",
+    "doc_id": "ipc_304B"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 305: Abetment of suicide of child or insane person in simple terms",
+    "response": "Punishment: Death or life imprisonment  fine.",
+    "doc_id": "ipc_305"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 306: Abetment of suicide in simple terms",
+    "response": "Punishment: 10 years  fine.",
+    "doc_id": "ipc_306"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 307: Attempt to murder in simple terms",
+    "response": "Punishment: 10 years  fine; life imprisonment if hurt caused.",
+    "doc_id": "ipc_307"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 308: Attempt to commit culpable homicide in simple terms",
+    "response": "Punishment: 3 years or fine or both; 7 years if hurt caused.",
+    "doc_id": "ipc_308"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 319: Hurt in simple terms",
+    "response": "Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_319"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 320: Grievous hurt in simple terms",
+    "response": "Punishment: Definition of 8 types of grievous hurt.",
+    "doc_id": "ipc_320"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 321: Voluntarily causing hurt in simple terms",
+    "response": "Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_321"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 322: Voluntarily causing grievous hurt in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_322"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 323: Punishment for voluntarily causing hurt in simple terms",
+    "response": "Section 323 of the Indian Penal Code, 1860 deals with Punishment for voluntarily causing hurt. Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_323"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 324: Voluntarily causing hurt by dangerous weapons in simple terms",
+    "response": "Punishment: 3 years or fine or both.",
+    "doc_id": "ipc_324"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 325: Punishment for voluntarily causing grievous hurt in simple terms",
+    "response": "Section 325 of the Indian Penal Code, 1860 deals with Punishment for voluntarily causing grievous hurt. Punishment: 7 years  fine.",
+    "doc_id": "ipc_325"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 326: Voluntarily causing grievous hurt by dangerous weapons in simple terms",
+    "response": "Punishment: Life imprisonment or 10 years  fine.",
+    "doc_id": "ipc_326"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 326A: Acid attack in simple terms",
+    "response": "Punishment: 10 years to life imprisonment  fine.",
+    "doc_id": "ipc_326A"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 326B: Acid attack with intent to disfigure in simple terms",
+    "response": "Punishment: 5 to 7 years  fine.",
+    "doc_id": "ipc_326B"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 327: Voluntarily causing hurt to extort property in simple terms",
+    "response": "Punishment: 10 years  fine.",
+    "doc_id": "ipc_327"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 328: Causing hurt by poison with intent to commit offense in simple terms",
+    "response": "Punishment: 10 years  fine.",
+    "doc_id": "ipc_328"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 329: Voluntarily causing grievous hurt to extort property in simple terms",
+    "response": "Punishment: Life imprisonment or 10 years  fine.",
+    "doc_id": "ipc_329"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 330: Voluntarily causing hurt to extort confession in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_330"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 339: Wrongful restraint in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_339"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 340: Wrongful confinement in simple terms",
+    "response": "Section 340 of the Indian Penal Code, 1860 deals with Wrongful confinement. Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_340"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 341: Punishment for wrongful restraint in simple terms",
+    "response": "Section 341 of the Indian Penal Code, 1860 deals with Punishment for wrongful restraint. Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_341"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 342: Punishment for wrongful confinement in simple terms",
+    "response": "Section 342 of the Indian Penal Code, 1860 deals with Punishment for wrongful confinement. Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_342"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 343: Wrongful confinement for 3+ days in simple terms",
+    "response": "Section 343 of the Indian Penal Code, 1860 deals with Wrongful confinement for 3 days. Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_343"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 344: Wrongful confinement for 10+ days in simple terms",
+    "response": "Section 344 of the Indian Penal Code, 1860 deals with Wrongful confinement for 10 days. Punishment: 3 years  fine.",
+    "doc_id": "ipc_344"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 345: Wrongful confinement in secret in simple terms",
+    "response": "Section 345 of the Indian Penal Code, 1860 deals with Wrongful confinement in secret. Punishment: 2 years  fine.",
+    "doc_id": "ipc_345"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 346: Wrongful confinement to extort property in simple terms",
+    "response": "Section 346 of the Indian Penal Code, 1860 deals with Wrongful confinement to extort property. Punishment: 3 years  fine.",
+    "doc_id": "ipc_346"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 350: Criminal force in simple terms",
+    "response": "Punishment: 3 months or fine or both.",
+    "doc_id": "ipc_350"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 351: Assault in simple terms",
+    "response": "Punishment: 3 months or fine or both.",
+    "doc_id": "ipc_351"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 352: Punishment for assault or criminal force in simple terms",
+    "response": "Section 352 of the Indian Penal Code, 1860 deals with Punishment for assault or criminal force. Punishment: 3 months or fine or both.",
+    "doc_id": "ipc_352"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 353: Assault to deter public servant in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_353"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 354: Assault or criminal force to woman with intent to outrage modesty in simple terms",
+    "response": "Punishment: 2 to 5 years  fine.",
+    "doc_id": "ipc_354"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 354A: Sexual harassment in simple terms",
+    "response": "Punishment: 3 years  fine.",
+    "doc_id": "ipc_354A"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 354B: Assault to disrobe woman in simple terms",
+    "response": "Punishment: 3 to 7 years  fine.",
+    "doc_id": "ipc_354B"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 354C: Voyeurism in simple terms",
+    "response": "Punishment: 3 to 7 years  fine.",
+    "doc_id": "ipc_354C"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 354D: Stalking in simple terms",
+    "response": "Punishment: 3 to 5 years  fine.",
+    "doc_id": "ipc_354D"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 355: Assault with intent to dishonor person in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_355"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 356: Assault in attempting to commit theft in simple terms",
+    "response": "Punishment: 2 years or fine or both.",
+    "doc_id": "ipc_356"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 357: Assault in attempting wrongful confinement in simple terms",
+    "response": "Section 357 of the Indian Penal Code, 1860 deals with Assault in attempting wrongful confinement. Punishment: 1 year or fine or both.",
+    "doc_id": "ipc_357"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 358: Assault on grave provocation in simple terms",
+    "response": "Punishment: 1 month or fine or both.",
+    "doc_id": "ipc_358"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 359: Kidnapping in simple terms",
+    "response": "Punishment: Definition.",
+    "doc_id": "ipc_359"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 360: Kidnapping from India in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_360"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 361: Kidnapping from lawful guardianship in simple terms",
+    "response": "Punishment: 7 years  fine.",
+    "doc_id": "ipc_361"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 362: Abduction in simple terms",
+    "response": "Punishment: Definition.",
+    "doc_id": "ipc_362"
+  },
+  {
+    "language": "en",
+    "query": "Explain IPC Section 363: Punishment for kidnapping in simple terms",
+    "response": "Section 363 of the Indian Penal Code, 1860 deals with Punishment for kidnapping. Punishment: 7 years  fine.",
+    "doc_id": "ipc_363"
+  }
+]

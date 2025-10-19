@@ -1,0 +1,75 @@
+[
+  {
+    "article": "Article 12",
+    "title": "Definition of State",
+    "content": "In this Part, unless the context otherwise requires, 'the State' includes the Government and Parliament of India and the Government and the Legislature of each of the States and all local or other authorities within the territory of India or under the control of the Government of India.",
+    "category": "constitutional_law",
+    "citations": [
+      "Article 12"
+    ],
+    "importance": "high"
+  },
+  {
+    "article": "Article 13",
+    "title": "Laws inconsistent with or in derogation of the fundamental rights",
+    "content": "All laws in force in the territory of India immediately before the commencement of this Constitution, in so far as they are inconsistent with the provisions of this Part, shall, to the extent of such inconsistency, be void. The State shall not make any law which takes away or abridges the rights conferred by this Part and any law made in contravention of this clause shall, to the extent of the contravention, be void.",
+    "category": "constitutional_law",
+    "citations": [
+      "Article 13"
+    ],
+    "importance": "high"
+  },
+  {
+    "article": "Article 14",
+    "title": "Equality before law",
+    "content": "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+    "category": "fundamental_rights",
+    "citations": [
+      "Article 14",
+      "State of West Bengal v. Anwar Ali Sarkar"
+    ],
+    "importance": "critical"
+  },
+  {
+    "article": "Article 15",
+    "title": "Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+    "content": "The State shall not discriminate against any citizen on grounds only of religion, race, caste, sex, place of birth or any of them. No citizen shall, on grounds only of religion, race, caste, sex, place of birth or any of them, be subject to any disability, liability, restriction or condition with regard to access to shops, public restaurants, hotels and places of public entertainment.",
+    "category": "fundamental_rights",
+    "citations": [
+      "Article 15"
+    ],
+    "importance": "critical"
+  },
+  {
+    "article": "Article 19",
+    "title": "Protection of certain rights regarding freedom of speech",
+    "content": "All citizens shall have the right to freedom of speech and expression; to assemble peaceably and without arms; to form associations or unions; to move freely throughout the territory of India; to reside and settle in any part of the territory of India; and to practice any profession, or to carry on any occupation, trade or business.",
+    "category": "fundamental_rights",
+    "citations": [
+      "Article 19",
+      "Romesh Thapar v. State of Madras"
+    ],
+    "importance": "critical"
+  },
+  {
+    "article": "Article 21",
+    "title": "Protection of life and personal liberty",
+    "content": "No person shall be deprived of his life or personal liberty except according to procedure established by law.",
+    "category": "fundamental_rights",
+    "citations": [
+      "Article 21",
+      "Maneka Gandhi v. Union of India"
+    ],
+    "importance": "critical"
+  },
+  {
+    "article": "Article 32",
+    "title": "Remedies for enforcement of rights conferred by this Part",
+    "content": "The right to move the Supreme Court by appropriate proceedings for the enforcement of the rights conferred by this Part is guaranteed. The Supreme Court shall have power to issue directions or orders or writs, including writs in the nature of habeas corpus, mandamus, prohibition, quo warranto and certiorari, whichever may be appropriate, for the enforcement of any of the rights conferred by this Part.",
+    "category": "constitutional_remedies",
+    "citations": [
+      "Article 32"
+    ],
+    "importance": "critical"
+  }
+]
