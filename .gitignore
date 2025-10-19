@@ -1,0 +1,50 @@
+# Large model files and data files
+*.npy
+*.safetensors
+*.bin
+*.pkl
+*.faiss
+
+# Specific large files
+data/embeddings/tfidf_matrix.npy
+data/enhanced/enhanced_tfidf_matrix.npy
+models/legal_model/legal_classification_model/model.safetensors
+models/legal_model/legal_qa_model/model.safetensors
+fast_gpu_legal_qa_system_*.pkl
+fast_gpu_legal_qa_system_*.faiss
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+test_output.txt
+test_report.json
+basic_test_report.json
+
+# Temporary files
+*.tmp
+*.temp
