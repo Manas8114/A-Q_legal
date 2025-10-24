@@ -36,6 +36,7 @@ from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
 import io
 import base64
+import random
 from PIL import Image
 warnings.filterwarnings("ignore")
 
@@ -52,6 +53,18 @@ except ImportError as e:
     CV_AVAILABLE = False
     print(f"Computer vision libraries not available: {e}")
     print("Computer vision features will be disabled.")
+
+# Generative Computer Vision imports
+try:
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import numpy as np
+    from src.generative_cv import GenerativeComputerVision, create_sample_legal_document_data, create_sample_diagram_config, create_sample_infographic_data, LegalDiagramConfig
+    GEN_CV_AVAILABLE = True
+except ImportError as e:
+    GEN_CV_AVAILABLE = False
+    print(f"Generative computer vision libraries not available: {e}")
+    print("Generative computer vision features will be disabled.")
 
 # Configure Streamlit page
 st.set_page_config(
@@ -267,8 +280,10 @@ class CaseLawIntegration:
                     persisted = json.load(f)
                 if isinstance(persisted, list) and persisted:
                     return persisted
-        except Exception:
-            pass
+        except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
+            print(f"Warning: Could not load case law data: {e}")
+        except Exception as e:
+            print(f"Warning: Unexpected error loading case law data: {e}")
         # Seed dataset
         return [
             {
@@ -346,8 +361,10 @@ class CaseLawIntegration:
             try:
                 with open(self.storage_path, "w", encoding="utf-8") as f:
                     json.dump(self.case_law_data, f, ensure_ascii=False, indent=2)
-            except Exception:
-                pass
+            except (IOError, OSError, json.JSONEncodeError) as e:
+                print(f"Warning: Could not save case law data: {e}")
+            except Exception as e:
+                print(f"Warning: Unexpected error saving case law data: {e}")
         return len(new_cases)
 
     def scrape_from_url(self, url: str, limit: int = 20) -> List[Dict[str, Any]]:
@@ -1583,7 +1600,13 @@ class AQlegalV4:
             return self._format_generative_response(query, [])
         
         # Step 4: Determine response type based on confidence
-        if search_type == 'semantic':
+        # Use search_type from results if available, otherwise use determined type
+        if search_results and search_results[0].get('search_type'):
+            actual_search_type = search_results[0]['search_type']
+        else:
+            actual_search_type = search_type
+            
+        if actual_search_type == 'semantic':
             threshold = self.SEMANTIC_CONFIDENCE_THRESHOLD
         else:
             threshold = self.KEYWORD_CONFIDENCE_THRESHOLD
@@ -1596,6 +1619,9 @@ class AQlegalV4:
     
     def _format_retrieved_response(self, query: str, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Format high-confidence retrieved response"""
+        if not results:
+            return self._empty_response(query)
+            
         return {
             "type": "retrieved",
             "confidence": "high",
@@ -1677,14 +1703,15 @@ def main():
     st.success(f"✅ System ready: {len(aqlegal.legal_data):,} legal documents loaded")
     
     # Create tabs for different features
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
         "Home",
         "Document Generator",
         "Case Law",
         "PDF Export",
         "Glossary",
         "Calendar",
-        "Computer Vision"
+        "Computer Vision",
+        "Generative CV"
     ])
     
     with tab1:
@@ -2305,6 +2332,391 @@ def main():
         - Process court filings and judgments
         """)
 
+    # Tab 8: Generative Computer Vision
+    with tab8:
+        st.header("🎨 Generative Computer Vision")
+        st.markdown("Generate visual legal documents, diagrams, and infographics using AI")
+        
+        if not GEN_CV_AVAILABLE:
+            st.warning("⚠️ Generative computer vision features are not available. Please install the required dependencies:")
+            st.code("pip install matplotlib seaborn wordcloud")
+            st.info("Generative computer vision features include document template generation, legal diagrams, infographics, and visual presentations.")
+            st.stop()
+        
+        # Initialize generative CV
+        if 'gen_cv' not in st.session_state:
+            st.session_state.gen_cv = GenerativeComputerVision()
+        
+        gen_cv = st.session_state.gen_cv
+        
+        # Feature selection
+        feature_type = st.selectbox(
+            "Select Generative Feature",
+            [
+                "Legal Document Template",
+                "Legal Process Diagram", 
+                "Legal Infographic",
+                "Contract Visualization",
+                "Legal Flowchart",
+                "Court Document Template",
+                "Legal Presentation Slide"
+            ]
+        )
+        
+        if feature_type == "Legal Document Template":
+            st.subheader("📄 Generate Legal Document Template")
+            
+            col1, col2 = st.columns([1, 1])
+            
+            with col1:
+                st.markdown("**Document Configuration**")
+                doc_type = st.selectbox("Document Type", ["contract", "affidavit", "motion", "brief", "petition", "order"])
+                layout_style = st.selectbox("Layout Style", ["professional", "modern", "traditional"])
+                
+                # Document content
+                doc_title = st.text_input("Document Title", value="Service Agreement Contract")
+                doc_date = st.date_input("Document Date", value=datetime.now().date())
+                
+                # Sections
+                st.markdown("**Document Sections**")
+                num_sections = st.number_input("Number of Sections", min_value=1, max_value=10, value=3)
+                
+                sections = []
+                for i in range(num_sections):
+                    with st.expander(f"Section {i+1}"):
+                        section_title = st.text_input(f"Section {i+1} Title", value=f"Section {i+1}")
+                        section_content = st.text_area(f"Section {i+1} Content", 
+                                                    value=f"This is the content for section {i+1}.")
+                        sections.append({"title": section_title, "content": section_content})
+            
+            with col2:
+                st.markdown("**Signature Blocks**")
+                num_signatures = st.number_input("Number of Signature Blocks", min_value=1, max_value=5, value=2)
+                
+                signature_blocks = []
+                for i in range(num_signatures):
+                    with st.expander(f"Signature Block {i+1}"):
+                        sig_title = st.text_input(f"Signature {i+1} Title", value=f"Party {i+1}")
+                        sig_name = st.text_input(f"Signature {i+1} Name", value=f"Name {i+1}")
+                        signature_blocks.append({
+                            "title": sig_title,
+                            "name": sig_name,
+                            "date": doc_date.strftime('%B %d, %Y')
+                        })
+                
+                watermark = st.text_input("Watermark Text (optional)", value="CONFIDENTIAL")
+            
+            if st.button("🎨 Generate Document Template", use_container_width=True):
+                with st.spinner("Generating document template..."):
+                    document_data = {
+                        'title': doc_title,
+                        'metadata': {
+                            'date': doc_date.strftime('%B %d, %Y'),
+                            'case_number': f'DOC-2024-{random.randint(1000, 9999)}'
+                        },
+                        'sections': sections,
+                        'signature_blocks': signature_blocks,
+                        'watermark': watermark if watermark else None
+                    }
+                    
+                    try:
+                        generated_doc = gen_cv.generate_legal_document_template(
+                            doc_type, document_data, layout_style
+                        )
+                        
+                        st.success("✅ Document template generated successfully!")
+                        st.image(generated_doc, caption=f"Generated {doc_type.title()} Template", use_column_width=True)
+                        
+                        # Download button
+                        buf = io.BytesIO()
+                        generated_doc.save(buf, format='PNG')
+                        buf.seek(0)
+                        st.download_button(
+                            label="📥 Download Document Template",
+                            data=buf.getvalue(),
+                            file_name=f"{doc_type}_template_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                            mime="image/png"
+                        )
+                    except Exception as e:
+                        st.error(f"❌ Error generating document template: {str(e)}")
+        
+        elif feature_type == "Legal Process Diagram":
+            st.subheader("📊 Generate Legal Process Diagram")
+            
+            col1, col2 = st.columns([1, 1])
+            
+            with col1:
+                st.markdown("**Diagram Configuration**")
+                diagram_title = st.text_input("Diagram Title", value="Legal Process Flow")
+                diagram_desc = st.text_area("Diagram Description", value="Overview of the legal process from filing to resolution")
+                
+                # Process steps
+                st.markdown("**Process Steps**")
+                num_steps = st.number_input("Number of Steps", min_value=2, max_value=10, value=5)
+                
+                steps = []
+                for i in range(num_steps):
+                    with st.expander(f"Step {i+1}"):
+                        step_label = st.text_input(f"Step {i+1} Label", value=f"Step {i+1}")
+                        step_type = st.selectbox(f"Step {i+1} Type", ["process", "decision", "start_end"], key=f"step_type_{i}")
+                        steps.append({
+                            'id': f'step_{i+1}',
+                            'label': step_label,
+                            'type': step_type
+                        })
+            
+            with col2:
+                if st.button("🎨 Generate Process Diagram", use_container_width=True):
+                    with st.spinner("Generating process diagram..."):
+                        # Calculate positions
+                        positions = []
+                        for i in range(len(steps)):
+                            if len(steps) <= 4:
+                                x = 2 + (i * 2.5)
+                                y = 5
+                            else:
+                                cols = 3
+                                row = i // cols
+                                col = i % cols
+                                x = 2 + (col * 3)
+                                y = 7 - (row * 2)
+                            positions.append((x, y))
+                        
+                        # Create diagram config
+                        diagram_config = LegalDiagramConfig(
+                            diagram_type="legal_process",
+                            title=diagram_title,
+                            description=diagram_desc,
+                            nodes=[{**step, 'position': pos} for step, pos in zip(steps, positions)],
+                            edges=[{'start': positions[i], 'end': positions[i+1], 'label': ''} 
+                                  for i in range(len(positions)-1)],
+                            styling={'theme': 'professional'}
+                        )
+                        
+                        try:
+                            generated_diagram = gen_cv.generate_legal_diagram(diagram_config)
+                            
+                            st.success("✅ Process diagram generated successfully!")
+                            st.image(generated_diagram, caption="Generated Legal Process Diagram", use_column_width=True)
+                            
+                            # Download button
+                            buf = io.BytesIO()
+                            generated_diagram.save(buf, format='PNG')
+                            buf.seek(0)
+                            st.download_button(
+                                label="📥 Download Process Diagram",
+                                data=buf.getvalue(),
+                                file_name=f"legal_process_diagram_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                                mime="image/png"
+                            )
+                        except Exception as e:
+                            st.error(f"❌ Error generating process diagram: {str(e)}")
+        
+        elif feature_type == "Legal Infographic":
+            st.subheader("📈 Generate Legal Infographic")
+            
+            col1, col2 = st.columns([1, 1])
+            
+            with col1:
+                st.markdown("**Infographic Configuration**")
+                infographic_type = st.selectbox("Infographic Type", ["statistics", "timeline", "comparison"])
+                
+                if infographic_type == "statistics":
+                    st.markdown("**Statistics Data**")
+                    categories = st.text_area("Categories (one per line)", 
+                                            value="Civil Cases\nCriminal Cases\nFamily Law\nCorporate Law\nConstitutional")
+                    values = st.text_area("Values (comma-separated)", value="45,30,25,20,15")
+                    
+                    success_rate = st.number_input("Success Rate (%)", min_value=0, max_value=100, value=78)
+                    
+                elif infographic_type == "timeline":
+                    st.markdown("**Timeline Data**")
+                    num_events = st.number_input("Number of Events", min_value=2, max_value=8, value=4)
+                    
+                elif infographic_type == "comparison":
+                    st.markdown("**Comparison Data**")
+                    comparison_groups = st.text_input("Group Names (comma-separated)", value="Group A,Group B")
+            
+            with col2:
+                if st.button("🎨 Generate Infographic", use_container_width=True):
+                    with st.spinner("Generating infographic..."):
+                        try:
+                            # Prepare data based on type
+                            if infographic_type == "statistics":
+                                category_list = [cat.strip() for cat in categories.split('\n') if cat.strip()]
+                                value_list = [int(v.strip()) for v in values.split(',')]
+                                
+                                data = {
+                                    'categories': dict(zip(category_list, value_list)),
+                                    'success_rate': success_rate,
+                                    'timeline': {
+                                        'dates': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                                        'values': [10, 15, 12, 18, 22, 25]
+                                    }
+                                }
+                            elif infographic_type == "timeline":
+                                data = {
+                                    'events': [
+                                        {'date': '2023-01-01', 'title': 'Case Filed', 'description': 'Initial filing'},
+                                        {'date': '2023-03-15', 'title': 'Discovery', 'description': 'Evidence gathering'},
+                                        {'date': '2023-06-01', 'title': 'Trial', 'description': 'Court proceedings'},
+                                        {'date': '2023-08-15', 'title': 'Verdict', 'description': 'Final decision'}
+                                    ]
+                                }
+                            else:  # comparison
+                                data = {
+                                    'categories': ['Category A', 'Category B', 'Category C'],
+                                    'values_a': [30, 45, 25],
+                                    'values_b': [25, 50, 35]
+                                }
+                            
+                            generated_infographic = gen_cv.generate_legal_infographic(data, infographic_type)
+                            
+                            st.success("✅ Infographic generated successfully!")
+                            st.image(generated_infographic, caption=f"Generated {infographic_type.title()} Infographic", use_column_width=True)
+                            
+                            # Download button
+                            buf = io.BytesIO()
+                            generated_infographic.save(buf, format='PNG')
+                            buf.seek(0)
+                            st.download_button(
+                                label="📥 Download Infographic",
+                                data=buf.getvalue(),
+                                file_name=f"legal_infographic_{infographic_type}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                                mime="image/png"
+                            )
+                        except Exception as e:
+                            st.error(f"❌ Error generating infographic: {str(e)}")
+        
+        elif feature_type == "Contract Visualization":
+            st.subheader("📋 Generate Contract Visualization")
+            
+            col1, col2 = st.columns([1, 1])
+            
+            with col1:
+                st.markdown("**Contract Configuration**")
+                contract_title = st.text_input("Contract Title", value="Service Agreement")
+                viz_type = st.selectbox("Visualization Type", ["structure", "timeline", "risk"])
+                
+                if viz_type == "structure":
+                    st.markdown("**Contract Clauses**")
+                    num_clauses = st.number_input("Number of Clauses", min_value=1, max_value=10, value=5)
+                    
+                elif viz_type == "timeline":
+                    st.markdown("**Contract Milestones**")
+                    num_milestones = st.number_input("Number of Milestones", min_value=2, max_value=8, value=4)
+            
+            with col2:
+                if st.button("🎨 Generate Contract Visualization", use_container_width=True):
+                    with st.spinner("Generating contract visualization..."):
+                        try:
+                            # Prepare contract data
+                            contract_data = {'title': contract_title}
+                            
+                            if viz_type == "structure":
+                                contract_data['clauses'] = [
+                                    {'title': f'Clause {i+1}'} for i in range(num_clauses)
+                                ]
+                            elif viz_type == "timeline":
+                                contract_data['milestones'] = [
+                                    {'title': f'Milestone {i+1}', 'date': f'2024-{(i+1)*3:02d}-01'} 
+                                    for i in range(num_milestones)
+                                ]
+                            else:  # risk
+                                contract_data['risks'] = [
+                                    {'title': f'Risk {i+1}', 'level': 'Medium', 'probability': 'Medium'} 
+                                    for i in range(3)
+                                ]
+                            
+                            generated_viz = gen_cv.generate_contract_visualization(contract_data, viz_type)
+                            
+                            st.success("✅ Contract visualization generated successfully!")
+                            st.image(generated_viz, caption=f"Generated Contract {viz_type.title()} Visualization", use_column_width=True)
+                            
+                            # Download button
+                            buf = io.BytesIO()
+                            generated_viz.save(buf, format='PNG')
+                            buf.seek(0)
+                            st.download_button(
+                                label="📥 Download Contract Visualization",
+                                data=buf.getvalue(),
+                                file_name=f"contract_{viz_type}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
+                                mime="image/png"
+                            )
+                        except Exception as e:
+                            st.error(f"❌ Error generating contract visualization: {str(e)}")
+        
+        # Quick demo section
+        st.markdown("---")
+        st.subheader("🚀 Quick Demo")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if st.button("📄 Demo Document Template", use_container_width=True):
+                with st.spinner("Generating demo document..."):
+                    try:
+                        demo_data = create_sample_legal_document_data()
+                        demo_doc = gen_cv.generate_legal_document_template("contract", demo_data)
+                        st.image(demo_doc, caption="Demo Legal Document Template", use_column_width=True)
+                    except Exception as e:
+                        st.error(f"Demo error: {str(e)}")
+        
+        with col2:
+            if st.button("📊 Demo Process Diagram", use_container_width=True):
+                with st.spinner("Generating demo diagram..."):
+                    try:
+                        demo_config = create_sample_diagram_config()
+                        demo_diagram = gen_cv.generate_legal_diagram(demo_config)
+                        st.image(demo_diagram, caption="Demo Legal Process Diagram", use_column_width=True)
+                    except Exception as e:
+                        st.error(f"Demo error: {str(e)}")
+        
+        with col3:
+            if st.button("📈 Demo Infographic", use_container_width=True):
+                with st.spinner("Generating demo infographic..."):
+                    try:
+                        demo_data = create_sample_infographic_data()
+                        demo_infographic = gen_cv.generate_legal_infographic(demo_data, "statistics")
+                        st.image(demo_infographic, caption="Demo Legal Infographic", use_column_width=True)
+                    except Exception as e:
+                        st.error(f"Demo error: {str(e)}")
+        
+        # Feature information
+        st.markdown("---")
+        st.subheader("💡 Generative Computer Vision Features")
+        st.markdown("""
+        **🎨 Legal Document Templates:**
+        - Generate professional legal document layouts
+        - Customizable sections, headers, and signature blocks
+        - Support for contracts, affidavits, motions, and more
+        - Professional styling and formatting
+        
+        **📊 Legal Process Diagrams:**
+        - Create flowcharts for legal processes
+        - Decision trees for legal scenarios
+        - Court process visualizations
+        - Customizable nodes and connections
+        
+        **📈 Legal Infographics:**
+        - Statistics dashboards for legal data
+        - Timeline visualizations for case progress
+        - Comparison charts for legal analysis
+        - Interactive and static formats
+        
+        **📋 Contract Visualizations:**
+        - Contract structure diagrams
+        - Timeline representations
+        - Risk analysis matrices
+        - Clause relationship mapping
+        
+        **🎯 Legal Presentations:**
+        - Professional presentation slides
+        - Legal case summaries
+        - Court document templates
+        - Visual legal arguments
+        """)
+
     # Tab 6: Settings
     with tab6:
         st.header("⚙️ Settings & System Information")
@@ -2359,7 +2771,11 @@ def main():
         - Comprehensive legal glossary
         - Legal calendar with important dates
         - Computer vision analysis (OCR, signature verification, document classification)
+        - Generative computer vision (document templates, legal diagrams, infographics)
 
         **Disclaimer**: This is an AI assistant for informational purposes only.
         Always consult a qualified lawyer for legal advice.
         """)
+
+if __name__ == "__main__":
+    main()

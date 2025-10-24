@@ -28,6 +28,12 @@ st.set_page_config(
 )
 
 class AQlegalV3:
+    # Constants for proper threshold logic
+    SEMANTIC_CONFIDENCE_THRESHOLD = 0.65  # For TF-IDF similarity (0-1 scale)
+    KEYWORD_CONFIDENCE_THRESHOLD = 5.0    # For keyword matching (0-20+ scale)
+    SEMANTIC_MIN_THRESHOLD = 0.1          # Minimum TF-IDF score to consider
+    DEFAULT_TOP_K = 3                     # Number of results to return
+    
     def __init__(self):
         self.data_dir = Path("data")
         self.models_dir = Path("models")
@@ -37,7 +43,7 @@ class AQlegalV3:
         self.sentence_model = None
         self.faiss_index = None
         self.generator = None
-        self.confidence_threshold = 0.65
+        self.confidence_threshold = self.SEMANTIC_CONFIDENCE_THRESHOLD  # Use constant
         
     @st.cache_resource
     def load_models(_self):
@@ -129,6 +135,7 @@ class AQlegalV3:
             if score > 0.3:  # Minimum similarity threshold
                 doc = data[idx].copy()
                 doc['similarity_score'] = float(score)
+                doc['search_type'] = 'semantic'  # Add search type for proper threshold logic
                 results.append(doc)
         
         return results
@@ -170,8 +177,11 @@ class AQlegalV3:
                     score += 3
             
             if score > 0:
-                item['similarity_score'] = float(score)
-                results.append(item)
+                # CRITICAL FIX: Create a copy to avoid modifying original data
+                doc_copy = item.copy()
+                doc_copy['similarity_score'] = float(score)
+                doc_copy['search_type'] = 'keyword'  # Add search type for proper threshold logic
+                results.append(doc_copy)
         
         results.sort(key=lambda x: x['similarity_score'], reverse=True)
         return results[:top_k]
@@ -222,7 +232,17 @@ class AQlegalV3:
         # Step 3: Check confidence
         max_confidence = max([doc.get('similarity_score', 0) for doc in semantic_results]) if semantic_results else 0
         
-        if max_confidence >= self.confidence_threshold:
+        # CRITICAL FIX: Proper threshold logic based on search type
+        search_type = 'semantic'  # Default assumption
+        if semantic_results and semantic_results[0].get('search_type') == 'keyword':
+            search_type = 'keyword'
+        elif max_confidence > 1.0:  # Keyword scores are typically > 1.0
+            search_type = 'keyword'
+        
+        # Set appropriate threshold based on search type
+        threshold = self.confidence_threshold if search_type == 'semantic' else 5.0
+        
+        if max_confidence >= threshold:
             # High confidence - use retrieved results
             return self.format_retrieved_response(query, semantic_results)
         else:
